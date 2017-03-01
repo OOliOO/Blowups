@@ -149,7 +149,7 @@ The resolution given by alterations is not, however, a resolution in the traditi
 
 \section{Completions}
 
-In this section we will talk about completing a commutative local ring. Completion, together with localization, form a very powerful way of looking at the structure of an algebraic variety near a point. Familiarity with basic algebraic geometry and commutative algebra is assumed.
+This section is devoted to an important construction called \emph{completion} which, together with localization, forms a very powerful way of looking at the structure of an algebraic variety near a point. Familiarity with basic algebraic geometry and commutative algebra is assumed.
 
 We begin with a motivating example. Recall the nodal curve $C$ from the first section, defined as the solution set of the polynomial $y^2 - x^3 - x^2$. At the origin the curve intersects itself, and it seems like the curve should, at least near the origin, consist of two components. But as $y^2 - x^3 - x^2$ is an irreducible polynomial, the coordinate ring $\OO_C (C)$ is an integral domain, as is the localization $\OO_{C,p}$ at origin $p$.
 
@@ -178,10 +178,12 @@ As $k[[x,y]]$ is a local ring with maximal ideal $(x,y)$, the localization $k[x,
 
 \subsection{Completion of topological abelian groups}
 
-Let $G$ be a topological abelian group. We say that a sequence $(x_i)$ in $G$ is \emph{Cauchy sequence} if for all neighbourhoods $U$ of $0$ we have $N_U \in \N$ such that $x_i - x_j \in U$ for all $i,j \geq N_U$. We say that $G$ is \emph{complete} if all Cauchy sequences converge to some value in $G$.
+Let $G$ be a topological abelian group. We say that a sequence $(x_i)$ in $G$ is \emph{Cauchy sequence} if for all neighbourhoods $U$ of $0$ we have $N_U \in \N$ such that $x_i - x_j \in U$ for all $i,j \geq N_U$. We say that $G$ is \emph{complete} if all Cauchy sequences converge to some value in $G$. Although this notion does make sense for non-Hausdorff groups too, from now on we will require complete groups to be Hausdorff.
+
+Before continuing, we quickly recall the following useful fact of topological groups. If we set $U_0$ to be the intersection of all neighbourhoods of 0, then it is in fact true that $U_0$ is a subgroup of $G$. Moreover, this subgroup is closed, and it is zero if and only if $G$ is Hausdorff. The topological group $G / U_0$ is Hausdorff and $U_0$ is contained in the kernel of any continuous homomorphism $G \to H$, where $H$ is Hausdorff.
 
 \begin{defn}
-Let $G$ be a topological abelian group. The \emph{completion} of $G$, denoted by $\widehat G$, is ''the smallest complete group where $G$ can be mapped into''. More precisely, this means that completion is a continuous group morphism $G \to \widehat G$, where $\widehat G$ is complete, and for all continuous homomorphisms $G \to X$, where $X$ is complete, we have a unique morphism such that the following diagram commutes:
+Let $G$ be a topological abelian group. The \emph{(Hausdorff) completion} of $G$, denoted by $\widehat G$, is ''the smallest complete group where $G$ can be mapped into''. More precisely, this means that completion is a continuous group morphism $G \to \widehat G$, where $\widehat G$ is complete, and for all continuous homomorphisms $G \to X$, where $X$ is complete, we have a unique morphism such that the following diagram commutes:
 
 \begin{center}
 \begin{tikzpicture}[scale=1]
@@ -197,10 +199,65 @@ Let $G$ be a topological abelian group. The \emph{completion} of $G$, denoted by
 ;
 \end{tikzpicture}
 \end{center}
-It is clear that this defines $\widehat G$ up to unique isomorphism, if it exists.
+It is clear that this defines $\widehat G$ up to unique isomorphism if it exists. Given a continuous homomorphism $f: G \to H$, the universal property induces a morphism $\widehat f : \widehat G \to \widehat H$, and it is easy to check that this defines a functor.
 \end{defn}
 
-Next we will show that the completion always exists when $G$ is first countable and Hausdorff. The idea is exactly the same one that is used when completing metric spaces.
+First property of the completion we are going to prove is the fact that it commutes with ''passing into Hausdorffication''.
+
+\begin{prop}
+Let $G$ be a topological abelian group and $U_0$ the intersection of all neighbourhoods of $0$. If the completion of $G/U_0$ exist, then $G \to G/U_0 \to \widehat{(G/U_0)}$ is the completion of $G$.
+\end{prop}
+\begin{proof}
+Assume we have a morphism $G \to X$, where $X$ is a complete topological group. As $X$ is Hausdorff, we know that $U_0$ is contained in the kernel of our map, and we can find a unique morphism $G / U_0 \to X$ making the diagram
+\begin{center}
+\begin{tikzpicture}[scale=1]
+\node (G) at (0,0) {$G$};
+\node (GH) at (0,2) {$G/U_0$};
+\node (X) at (3,0) {$X$};
+
+\path[]
+(G) edge[->] (GH)
+(G) edge[->] (X)
+(GH) edge[->, dashed] node[above]{$\exists !$} (X)
+;
+\end{tikzpicture}
+\end{center}
+commute. We can now use the fact that the completion of $G / U_0$ is known to exist, and hence we have a unique map $\widehat {(G/U_0)} \to X$ making the upper triangle of
+\begin{center}
+\begin{tikzpicture}[scale=1]
+\node (G) at (0,0) {$G$};
+\node (GH) at (0,2) {$G/U_0$};
+\node (X) at (3,0) {$X$};
+\node (GHh) at (3,2) {$\widehat{(G / U_0)}$};
+
+\path[]
+(G) edge[->] (GH)
+(G) edge[->] (X)
+(GH) edge[->] (GHh)
+(GHh) edge[->,dashed] node[right]{$\exists !$} (X)
+(GH) edge[->] (X)
+;
+\end{tikzpicture}
+\end{center}
+commute. As $G \to G/U_0$ is surjective, the map $\widehat {(G/U_0)} \to X$ is also the only one making
+\begin{center}
+\begin{tikzpicture}[scale=1]
+\node (G) at (0,0) {$G$};
+\node (Ghat) at (0,2) {$\widehat {(G/U_0)}$};
+\node (X) at (3,2) {$X$};
+
+
+\path[]
+(G) edge[->] (Ghat)
+(G) edge[->] (X)
+(Ghat) edge[->, dashed] node[above]{$\exists !$} (X)
+;
+\end{tikzpicture}
+\end{center}
+commute, and hence we are done.
+\end{proof}
+
+Next we will show that the completion always exists when $G$ is first countable. The idea is exactly the same one that is used when completing metric spaces.
 
 Denote by $s(G)$ the set of Cauchy sequences in group $G$. This is a group: if $(x_i)$ is a Cauchy sequence, then so is $(-x_i)$ for negation is homeomorphism. If $(x_i)$ and $(y_i)$ are Cauchy sequences, then so is $(x_i + y_i)$. This is not too hard to see: for all neighbourhoods $U$ of the origin, we have smaller neighbourhoods $V_1$ and $V_2$ such that $V_1 + V_2 \subset U$ by continuity of summation. Then we may choose $N$ to be large enough so that $x_i-x_j \in V_1$ and $y_i-y_j \in V_2$ for all $i,j \geq N$. Now $(x_i + y_i) - (x_j + y_j) = (x_i - x_j) + (y_i - y_j) \in U$. Similarly we can see that $s_0(G)$, the sequences of $G$ that converge to 0, is a subgroup of $s(G)$. We define a topological group $G'$ algebraically as $s(G) / s_0(G)$.
 
@@ -231,6 +288,8 @@ Verifying these conditions is fairly straightforward:
 \end{enumerate}
 This finishes the proof.
 \end{proof}
+
+
 
 Next we show the continuity of our homomorphism $G \to G'$.
 
@@ -264,7 +323,7 @@ If $(U_i)$ is a countable open neighbourhood basis for $0 \in G$, then $(U_i')$ 
 \end{proof}
 
 \begin{lem}
-Assume that $G$ is first countable. Now the topological group $G'$ is complete.
+Assume that $G$ is first countable. Now every Cauchy sequence in $G'$ converges.
 \end{lem}
 \begin{proof}
 Let $(U_i)$ and $(U_i')$ be as in the previous lemma. We may assume that $U_i$, and hence $U_i'$, are descending, i.e., $U_i \supset U_{i+1}$.
@@ -280,13 +339,12 @@ x^i_j - x^j_j &= (x^i_j - x^i_m) + (x^i_m - x^j_m) + (x^j_m - x^j_j) \\
 and hence, for large $j$, we have $x^i_j - x^j_j + U_i \subset U_n$, proving that $x^i - x \in U'_n$. This concludes the proof.
 \end{proof}
 
-It is known that a topological group is Hausdorff if and only if the intersection of all neighbourhoods of $0$ is $\{ 0 \}$. From this we derive the following properties:
 
 \begin{lem}
-If $G$ is Hausdorff then so is $G'$, and $G \to G'$ is a topological embedding.
+The group $G'$ is Hausdorff and if $G$ is Hausdorff, then $G \to G'$ is a topological embedding.
 \end{lem}
 \begin{proof}
-Let $\mathcal U$ contain all the neighbourhoods of $0$ in $G$. By assumption, $\bigcap_{U \in \mathcal U} U = \{ 0 \}$. To prove that $G'$ is Hausdorff, it is enough to show that $\bigcap_{U \in \mathcal U} U' = \{ 0 \}$. If $x$ lies in $U'$, for all its representatives $(x_i)$ we have that $x_i \in U$ for large $i$. But clearly, if $x \in \bigcap_{U \in \mathcal U} U'$, then this means that $x_i$ converges to 0, i.e., $x = 0 \in G'$.
+Let $\mathcal U$ contain all the neighbourhoods of $0$ in $G$. To prove that $G'$ is Hausdorff, it is enough to show that $\bigcap_{U \in \mathcal U} U' = \{ 0 \}$. If $x$ lies in $U'$, for all its representatives $(x_i)$ we have that $x_i \in U$ for large $i$. Hence if $x \in \bigcap_{U \in \mathcal U} U'$, then this means that $x_i$ converges to 0, i.e., $x = 0 \in G'$.
 
 If $G$ is Hausdorff and $x \not = y$ are two of its elements, then $x-y$ is nonzero, and we have a neighbourhood $U$ of the origin such that $x-y \not \in U$. Therefore the images of $x$ and $y$ in $G'$ cannot coincide, and we can conclude that $G \to G'$ is an injection. 
 
@@ -296,10 +354,10 @@ Finally, we need to show that the map $G \to \im (G)$ is a homeomorphism. But we
 Now we are finally ready to prove the existence of completion.
 
 \begin{thm}
-If $G$ is first countable and Hausdorff then $G \to G'$ is the completion of $G$.
+If $G$ is first countable then $G \to G'$ is the completion of $G$.
 \end{thm}
 \begin{proof}
-Assume that $X$ is a complete topological group, and $f: G \to X$ a continuous. By the previous lemma, we may think $G$ as a topological subspace of $G'$. Moreover, this subspace is clearly dense, as every point of $G'$ can be approximated by a sequence in $G$. If we want to extend $f$ into a continuous function $f' : G' \to X$, then for a point $x \in G'$ represented by a Cauchy sequence $(x_i)$ in $G$, we must have that $f' (x) = \lim f(x_i)$. We are done if we can show that $f'$ defined as above gives a well defined continuous morphism $G' \to X$.
+At least we know that $G'$ is complete. Assume then that $X$ is a complete topological group, and $f: G \to X$ a continuous homomorphism. It is clear by the definition of $G'$ that it's elements can be approximated by a sequences contained in the image of $G$. If we want to extend $f$ into a continuous function $f' : G' \to X$, then for a point $x \in G'$ represented by a Cauchy sequence $(x_i)$ in $G$, we must have that $f' (x) = \lim f(x_i)$. We are done if we can show that $f'$ defined as above gives a well defined continuous morphism $G' \to X$.
 
 First of all, as $f: G \to X$ is continuous, it is easy to see that it sends Cauchy sequences in $G$ to Cauchy sequences in $X$. Hence at least the limit $\lim f(x_i)$ exists. If the Cauchy sequences $(x_i)$ and $(x'_i)$ define the same element of $G$, then $x_i - x'_i \to 0$, and thus $f(x_i) - f(x'_i) = f(x_i - x'_i) \to 0$. This proves that our map $f'$ is a well defined function $G' \to X$. It is also easy to see that this is a homomorphism of groups. The final thing left is to show that $f'$ is continuous.
 
@@ -344,7 +402,7 @@ The limit $\varprojlim (G / G_i)$ is exactly the kernel of $\Delta_G$.
 
 Using the above proposition, we can obtain some nice results rather easily using just a tiny bit of basic homological algebra. Namely:
 
-\begin{thm}
+\begin{thm}\label{ExactCompletion}
 Let $H$ be a (topological) subgroup of $G$. Now we have a canonical isomorphism
 \begin{equation*}
 \plim (\overline{G} / \overline{G_i}) \cong \plim (G / G_i) / \plim (H / H_i), 
@@ -404,7 +462,7 @@ Assume we have chosen $(x'_1, ..., x'_{n+1}, 0 , ...)$ mapping to $(x_1,...,x_n,
 We have the following immediate corollary:
 
 \begin{cor}
-Let $G$ be a Hausdorff topological group, whose topology is given by a filtration, and $H \leq G$ a closed subgroup. Now we have a canonical isomorphism 
+Let $G$ be a topological group, whose topology is given by a filtration, and $H \leq G$ a subgroup. Now we have a canonical isomorphism 
 \begin{equation*}
 \widehat{(G/H)} \cong \widehat{G} / \widehat{H}.
 \end{equation*}
@@ -413,7 +471,7 @@ Let $G$ be a Hausdorff topological group, whose topology is given by a filtratio
 This is a trivial consequence of the previous discussion. The fact that $G$ is Hausdorff is used for identifying $\plim (G/G_i)$ with the completion, and the fact that $H$ is closed is necessary to make sure that $G/H$ is Hausdorff.
 \end{proof}
 
-This looks a bit like the completion might be exact, at least in good cases. But this it is quite dangerous to try to think about these properties in that way: the category of topological abelian groups is not abelian as there is too much freedom in the choice of topology, and therefore one has to be quite careful when talking about exact sequences. This can, however, be fixed by restricting into a suitable subcategory which is restrictive enough on topology.
+This looks a bit like the completion might be exact, at least in good cases. But it is quite dangerous to try to think about these properties in that way: the category of topological abelian groups is not abelian as there is too much freedom in the choice of topology, and therefore one has to be quite careful when talking about exact sequences. This can, however, be fixed by restricting into a suitable subcategory which is restrictive enough on topology.
 
 Quite often, a convenient way of specifying an element of $\widehat G$, where $G$ has the topology induced by a filtration, is to give an infinite sum
 \begin{equation*}
@@ -432,18 +490,89 @@ If $A$ is a ring ($M$ an $A$-module), then a \emph{filtration} on $A$ (on $M$) i
 The most common filtration occurring in commutative algebra is the \emph{$I$-adic} filtration: we have an ideal $I$ of $A$, and we set $I_i = I^i$. Similarly we have the $I$-adic filtration on $M$ defined by $M_i = I^i M$. The induced topology is called the \emph{$I$-adic topology}. Two well known theorems in commutative algebra can be given a topological meaning.
 
 \begin{prop}
-\textbf{(Topological Krull's intersection theorem.)}
+\textbf{(Topological Krull's intersection theorem)} Let $A$ be a local Noetherian ring and $I$ a proper ideal. Now the $I$-adic topology on $A$ and on finite $A$-modules $M$ is Hausdorff.
 \end{prop}
+\begin{proof}
+The usual statement is that the intersection $\bigcap_i I^iM$ is zero, which is equivalent to the filtration inducing a Hausdorff topology.
+\end{proof}
+
+\begin{prop}
+\textbf{(Topological Artin-Rees lemma)} Let $A$ be a Noetherian ring and $I$ its proper ideal. Give the ring $A$ the $I$-adic topology. If $M$ is a finitely generated $A$-module with $I$-adic topology and $N$ is a submodule of $M$, then the topology $N$ inherits from $M$ is exactly the $I$-adic topology. 
+\end{prop}
+\begin{proof}
+Again, the usual statement is just that the $I$-adic filtration on $M$ restricts to a $I$-good filtration on $N$, which is easily seen to prove the claim.
+\end{proof}
+
+Assume that the ring $A$ is Noetherian. We can now restrict our attention to the \emph{category of finitely generated $I$-adic $A$-modules}. The objects are just finitely generated $A$-modules with the $I$-adic topology and the morphisms are the continuous $A$-linear maps. However, if $f: M \to N$ is \emph{any} map of $A$-modules, then $f(I^iM) \subset I^i N$, and hence the morphism is seen to be continuous in the $I$-adic topology. Hence, categorically, the finitely generated $I$-adic $A$-modules are equivalent to finitely generated $A$-modules. Especially we can conclude that they form an abelian category.
+
+Now we can finally interpet the proof of \fref{ExactCompletion} as saying that the completion is an exact functor. But for future use, it is convenient to note that the completion coincides with taking the tensor product with $\widehat A$. As the completion $M \to \widehat M$ is a map to a $\widehat A$-module, we have the usual map $\widehat A \otimes_A  M \to \widehat M$. This is easily seen to define a natural transformation, which in good situations is an isomorphism.
+
+\begin{prop}
+Let $A$ be a Noetherian ring and $M$ a finitely generated $A$-module. Now the natural map $\widehat A \otimes_A M \to \widehat M$ is an isomorphism.
+\end{prop}
+\begin{proof}
+This is clear if $M$ is a free module. In the general case, as $A$ is Noetherian, we know that $M$ is \emph{finitely presented}, i.e., we have an exact sequence
+\begin{equation*}
+F_1 \to F_0 \to M \to 0
+\end{equation*}
+where the modules $F_i$ are free. Using what we already know for free $A$-modules, we obtain the commutative diagram
+\begin{center}
+\begin{tikzpicture}[scale=1.5]
+\node (AF1) at (0,1) {$\widehat A \otimes_A F_1$};
+\node (AF0) at (2,1) {$\widehat A \otimes_A F_0$};
+\node (AM) at (4,1) {$\widehat A \otimes_A M$};
+\node (01) at (5.5,1) {$0$};
+
+\node (F1h) at (0,0) {$\widehat F_1$};
+\node (F0h) at (2,0) {$\widehat F_0$};
+\node (Mh) at (4,0) {$\widehat M$};
+\node (02) at (5.5,0) {$0$};
+
+\path[]
+(AF1) edge[->] (AF0)
+(AF0) edge[->] (AM)
+(AM) edge[->] (01)
+(F1h) edge[->] (F0h)
+(F0h) edge[->] (Mh)
+(Mh) edge[->] (02)
+(AF1) edge[->] (F1h)
+(AF0) edge[->] (F0h)
+;
+\end{tikzpicture}
+\end{center}
+where the vertical maps are isomorphisms. Now we can use the uniqueness of cokernels to conclude that the natural map $\widehat A \otimes_A M  \to \widehat{M}$ is an isomorphism.
+\end{proof}
+
+In the process we have seen that $\widehat A$ is a flat $A$-algebra.
+
+\begin{prop}
+Assume that $A$ is a Noetherian ring. Now the completion $\widehat A$ is a flat $A$-algebra.
+\end{prop}
+\begin{proof}
+As tensoring with $\widehat A$ is the same as completion for all \emph{finitely generated} $A$-modules, we see that $\widehat A \otimes_A $ preserves all short exact sequences of finitely generated $A$-modules. But it is well known that this is equivalent to $\widehat A$ being flat.
+\end{proof}
+
+From now on, assume that we are dealing with a local ring $A$ with maximal ideal $m_A$ and residue field $K = A / m_A$. Moreover, unless otherwise stated, all completions will be taken with respect to the $m_A$-adic topology. 
+
+\begin{prop}
+The completion $\widehat A $ is a local ring with maximal ideal $\widehat{m_A}$ and residue field $K$.
+\end{prop}
+\begin{proof}
+We know that $\widehat A / \widehat{m_A} \cong \widehat{(A/m_A)}$ naturally, and as $A / m_A$ is $K$ with the discrete topology, the left hand side of the equation is $K$. This proves that $m_A$ is \emph{a} maximal ideal. 
+
+In order to see that it is the only one, we need to show that $\widehat {m_A}$ contains all nonunits of $\widehat A$. This is perhaps most easily seen from the limit construction: the completion of $m_A$ consists of exactly those elements of $\plim (A / m_A^i)$, whose first coordinate is zero. If this is not the case, then in all coordinates we have something in $A / m_A^i$ not lying in the image of $m_A$. But this means that the coordinates are units, and hence the element is invertible as well, proving that all elements lying outside $\widehat{m_A}$ are units.
+\end{proof} 
+
 \subsection{Hensel's lemma}
 
-One of the nicest property of complete rings is what is known as the Hensel's lemma. The version we are going to give states that if a polynomial $f \in A[x]$ has a simple root in $A/m_A$, then it does have a root in $\widehat A$.
+One of the nicest property of complete rings is what is known as the Hensel's lemma. The version we are going to give states that if a polynomial $f \in A[x]$ has a simple root in $A/m_A$, then it also has a root in $\widehat A$.
 
 \begin{thm} \textbf{Hensel's lemma.} Let $f$ be a polynomial in $A[x]$ which has a simple root $[a_0] \in A/m_A$. Now there is an element $a \in \widehat A$ such that $a = a_0$ modulo $m_A$ and $f(a) = 0$.
 \end{thm} 
 \begin{proof}
-It is enough to find sums $a_0 + a_1 + ... + a_n$, where $a_i \in m_A^i$, such that $f(a_0 + ... + a_n) \in m_A^{n+1}$ for all $n$. This is because, first of all, passing to infinite sum $a_0 + a_1 + ...$ clearly defines an element of the completion $\widehat A$, and second of all, because clearly now the limit value $f(a_0 + a_1 + ...)$ is $0 \in \widehat A$. 
-
-Assume we have already chosen $a_0,...,a_n$, and would like to choose $a_{n+1} \in m_A^{n+1}$. Now we have
+It is enough to find sums $a_0 + a_1 + ... + a_n$, where $a_i \in m_A^i$, such that $f(a_0 + ... + a_n) \in m_A^{n+1}$ for all $n$. This is because the polynomial $f$ clearly defines a continuous map $A \to A$ and $f(a_0 + ... + a_n) \to 0$ as $n$ tends to infinity. Thus, if we set $a = a_0 + a_1 + ...$, then $f(a) = 0$.
+ 
+Assume we have already chosen $a_0,...,a_n$, and would like to choose $a_{n+1} \in m_A^{n+1}$ in a way that our inductive assumption would still hold. Now we have
 \begin{equation*}
 f(a_0 + ... + a_n + a_{n+1}) = f(a_0 + ... + a_n) + f'(a_0 + ... + a_n)a_{n+1} + b a_{n+1}^2
 \end{equation*}
@@ -458,12 +587,12 @@ a_{n+1} = - {f(a_0 + ... + a_n) \over f'(a_0 + ... + a_n)},
 and we are done by induction.
 \end{proof}
 
-\subsection{Cohen structure theorem}
+\subsection{Structure of complete local Noetherian rings}
 
-The structure of completed rings is quite simple, at least for the rings most common in algebraic geometry. In this subsection we concentrate to $k$-algebras, where $k$ is a field of characteristic 0.
+One of the great things about completion is how it simplifies the theory of local rings. Although localization tries to encapsulate only the local information near a point in a variety, it usually contains very much information, as the open sets of the Zariski topology are so large. Therefore the structure of the local rings is also quite varied. However, once we require completeness, the rings have surprisingly little structural freedom. In this subsection we concentrate on local $k$-algebras where $k$ is a field of characteristic 0.
 
 \begin{lem}
-Let $A$ contain a field of characteristic 0. Now $\widehat A$ contains a coordinate field, i.e., a field mapping isomorphically onto $A/m_A$ in the quotient map $A \to A/m_A$.
+Let $A$ contain a field of characteristic 0. Now $\widehat A$ contains a coordinate field, i.e., a field mapping isomorphically onto $ A/ m_A$ in the quotient map $\widehat A \to \widehat A/ \widehat {m_A} = A / m_A$.
 \end{lem}
 \begin{proof}
 Clearly $A$ contains a field of characteristic 0 if and only if it contains $\Q$. Denote by $K$ the residue field $A/m_A$. 
