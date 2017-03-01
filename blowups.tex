@@ -27,6 +27,9 @@
 \newcommand{\im}{\mathrm{im}}
 \newcommand{\coim}{\mathrm{coim}}
 \newcommand{\spec}{\mathrm{Spec}}
+\newcommand{\plim}{\varprojlim}
+\newcommand{\dlim}{\varinjlim}
+
 
 \newcommand{\sectionbreak}{\clearpage}
 
@@ -171,19 +174,19 @@ describing the two branches of the curve.
 
 We may connect this back to algebraic geometry when we note that $\sqrt{1+x}$ can be expressed by its Taylor series. Hence, if we think $y^2 - x^3 - x^2$ as an element of the formal power series ring $k[[x,y]]$ instead of the polynomial ring $k[x,y]$, the equation $y^2 - x^3 - x^2$ cuts out a reducible subscheme of $\spec k[[x,y]]$, and the irreducible components correspond to the two branches at the origin. Somehow, when we passed into the ring of formal power series, we are now much closer to the origin than by localization. 
 
-As $k[[x,y]]$ is a local ring with maximal ideal $(x,y)$, the localization $k[x,y]_{(x,y)}$ embeds into it, and from this it is fairly easy to see that $\OO_{C,p}$ embeds into $k[[x,y]]/(y^2 - x^3 - x^2)$. The idea of completion of local rings is exactly this: we want to get closer, so instead of just looking at the localization, we somehow replace the local ring with some sort of power series ring. We say that we pass into \emph{formal neighbourhood} of a point $p$ when we do this. The nice thing is that these are usually much simpler than the local rings: for example, if we have a nonsingular $k$-variety $X$ of dimension $d$, where $k$ is algebraically closed, then the completion $\hat \OO_{X,p}$ of the local ring at a closed point $p$ is isomorphic to $k[[x_1,...,x_d]]$.
+As $k[[x,y]]$ is a local ring with maximal ideal $(x,y)$, the localization $k[x,y]_{(x,y)}$ embeds into it, and from this it is fairly easy to see that $\OO_{C,p}$ embeds into $k[[x,y]]/(y^2 - x^3 - x^2)$. The idea of completion of local rings is exactly this: we want to get closer, so instead of just looking at the localization, we somehow replace the local ring with some sort of power series ring. We say that we pass into \emph{formal neighbourhood} of a point $p$ when we do this. The nice thing is that these are usually much simpler than the local rings: for example, if we have a nonsingular $k$-variety $X$ of dimension $d$, where $k$ is algebraically closed, then the completion $\widehat \OO_{X,p}$ of the local ring at a closed point $p$ is isomorphic to $k[[x_1,...,x_d]]$.
 
 \subsection{Completion of topological abelian groups}
 
 Let $G$ be a topological abelian group. We say that a sequence $(x_i)$ in $G$ is \emph{Cauchy sequence} if for all neighbourhoods $U$ of $0$ we have $N_U \in \N$ such that $x_i - x_j \in U$ for all $i,j \geq N_U$. We say that $G$ is \emph{complete} if all Cauchy sequences converge to some value in $G$.
 
 \begin{defn}
-Let $G$ be a topological abelian group. The \emph{completion} of $G$, denoted by $\hat G$, is ''the smallest complete group where $G$ can be mapped into''. More precisely, this means that completion is a continuous group morphism $G \to \hat G$, where $\hat G$ is complete, and for all continuous homomorphisms $G \to X$, where $X$ is complete, we have a unique morphism such that the following diagram commutes:
+Let $G$ be a topological abelian group. The \emph{completion} of $G$, denoted by $\widehat G$, is ''the smallest complete group where $G$ can be mapped into''. More precisely, this means that completion is a continuous group morphism $G \to \widehat G$, where $\widehat G$ is complete, and for all continuous homomorphisms $G \to X$, where $X$ is complete, we have a unique morphism such that the following diagram commutes:
 
 \begin{center}
 \begin{tikzpicture}[scale=1]
 \node (G) at (0,0) {$G$};
-\node (Ghat) at (0,2) {$\hat G$};
+\node (Ghat) at (0,2) {$\widehat G$};
 \node (X) at (3,2) {$X$};
 
 
@@ -194,7 +197,7 @@ Let $G$ be a topological abelian group. The \emph{completion} of $G$, denoted by
 ;
 \end{tikzpicture}
 \end{center}
-It is clear that this defines $\hat G$ up to unique isomorphism, if it exists.
+It is clear that this defines $\widehat G$ up to unique isomorphism, if it exists.
 \end{defn}
 
 Next we will show that the completion always exists when $G$ is first countable and Hausdorff. The idea is exactly the same one that is used when completing metric spaces.
@@ -317,10 +320,10 @@ The completion of a discrete topological group $G$ is $G$.
 \end{cor} 
 
 \begin{cor}
-Let $H$ be a subgroup of first countable Hausdorff $G$. Now the closure of $H$ in $\hat G$ is the completion of $H$.
+Let $H$ be a subgroup of first countable Hausdorff $G$. Now the closure of $H$ in $\widehat G$ is the completion of $H$.
 \end{cor}
 \begin{proof}
-Now $H$ is first countable and Hausdorff, and using the construction for the completion we just have described, the claim is trivial, as the closure of $H$ in $\hat G$ is the set of points that can be approximated by sequences in $H$ ($\hat G$ is first countable, otherwise this would not necessarily hold).
+Now $H$ is first countable and Hausdorff, and using the construction for the completion we just have described, the claim is trivial, as the closure of $H$ in $\widehat G$ is the set of points that can be approximated by sequences in $H$ ($\widehat G$ is first countable, otherwise this would not necessarily hold).
 \end{proof}
 
 \subsubsection*{Filtrations}
@@ -333,24 +336,112 @@ of subgroups. The filtration induces a structure of a topological group, where $
 
 $G$ is necessarily first countable, and Hausdorff if and only if $\bigcap_i G_i$ is the trivial subgroup. Assuming this is the case, we can give another construction for the completion of $G$. It is based on the fact that for every equivalence class of Cauchy sequences, one can choose a representative $(x_i)$ such that $x_i - x_j \in G_n$ for all $i,j \geq n$. Therefore $x_i$ defines the following values up to $G_i$. Such sequences are clearly in one to one correspondence with elements of $\prod_i (G/G_i)$ where the higher coordinates agree with the $i^{th}$ one modulo $G_i$. This is actually a special case of a general construction known as the \emph{projective limit}. Usually this is denoted by $\varprojlim (G/G_i)$.
 
-Another way of specifying the elements of $\hat G$ for a topology induced by filtration is by giving an infinite sum
+This construction is actually quite useful, as we shall see in a moment. Define a map $\Delta_G : \prod_i (G/G_i) \to \prod_i (G/G_i)$ by sending $([x_i])$ to $([x_i - x_{i+1}])$. The following proposition is just a restatement of the definition.
+
+\begin{prop}
+The limit $\varprojlim (G / G_i)$ is exactly the kernel of $\Delta_G$.
+\end{prop}
+
+Using the above proposition, we can obtain some nice results rather easily using just a tiny bit of basic homological algebra. Namely:
+
+\begin{thm}
+Let $H$ be a (topological) subgroup of $G$. Now we have a canonical isomorphism
+\begin{equation*}
+\plim (\overline{G} / \overline{G_i}) \cong \plim (G / G_i) / \plim (H / H_i), 
+\end{equation*}
+where $\overline G = G/H$, $\overline G_i$ is the image of $G_i$ in $\overline G$, and $H_i = H \cap G_i$.
+\end{thm}
+\begin{proof}
+For each $i$, we clearly have the exact sequence
+\begin{equation*}
+0 \to H / H_i \to G / G_i \to \overline{G} / \overline{G_i} \to 0
+\end{equation*}
+This gives rise to the following commutative diagram with exact rows:
+\begin{center}
+\begin{tikzpicture}[scale=3]
+\node (01) at (0.3,0) {$0$};
+\node (02) at (3.7,0) {$0$};
+\node (03) at (0.3,-0.5) {$0$};
+\node (04) at (3.7,-0.5) {$0$};
+\node (H1) at (1,0) {$\prod_i (H / H_i)$};
+\node (G1) at (2,0) {$\prod_i (G / G_i)$};
+\node (Gb1) at (3,0) {$\prod_i (\overline{G} / \overline{H_i})$};
+\node (H2) at (1,-0.5) {$\prod_i (H / H_i)$};
+\node (G2) at (2,-0.5) {$\prod_i (G / G_i)$};
+\node (Gb2) at (3,-0.5) {$\prod_i (\overline{G} / \overline{H_i})$};
+
+\path[]
+(01) edge[->] (H1)
+(H1) edge[->] (G1)
+(G1) edge[->] (Gb1)
+(Gb1) edge[->] (02)
+(03) edge[->] (H2)
+(H2) edge[->] (G2)
+(G2) edge[->] (Gb2)
+(Gb2) edge[->] (04)
+(H1) edge[->] node[right]{$\Delta_H$} (H2)
+(G1) edge[->] node[right]{$\Delta_G$} (G2)
+(Gb1) edge[->] node[right]{$\Delta_{\overline{G}}$} (Gb2)
+;
+\end{tikzpicture}
+\end{center}
+The snake lemma gives us the exact sequence
+\begin{equation*}
+0 \to \plim (H / H_i) \to \plim (G / G_i) \to \plim (\overline{G} / \overline{G_i}) \to \coker(\Delta_H)
+\end{equation*}
+which proves our claim, as $\coker(\Delta_H) = 0$ by the next lemma.
+\end{proof}
+
+\begin{lem}
+The map $\Delta_G$ is surjective. 
+\end{lem}
+\begin{proof}
+Let us have an element $x = (x_i) \in \prod_i (G / G_i)$. We construct an element $x' = (x'_i)$ that maps to $x$. Pick $x'_1 = x_1$  and $x'_2 = 0$, so that we have an element $(x'_1, x'_2, 0, 0, ...)$ mapping to $(x_1, x'_2, 0, ...)$.
+
+Assume we have chosen $(x'_1, ..., x'_{n+1}, 0 , ...)$ mapping to $(x_1,...,x_n,x'_{n+1},0,...)$. As the map $G / G_{n+2} \to G / G_{n+1}$ is surjective, we may choose $x'_{n+2}$ in such a way that the difference $x'_{n+1} - x'_{n+2}$ equals $x_{n+1}$. But now $(x'_1, ..., x'_{n+2},0 , ...)$ maps to $(x_1,...,x_{n+1}, x'_{n+2},0,...)$ and we are done by induction.
+\end{proof}
+
+We have the following immediate corollary:
+
+\begin{cor}
+Let $G$ be a Hausdorff topological group, whose topology is given by a filtration, and $H \leq G$ a closed subgroup. Now we have a canonical isomorphism 
+\begin{equation*}
+\widehat{(G/H)} \cong \widehat{G} / \widehat{H}.
+\end{equation*}
+\end{cor}
+\begin{proof}
+This is a trivial consequence of the previous discussion. The fact that $G$ is Hausdorff is used for identifying $\plim (G/G_i)$ with the completion, and the fact that $H$ is closed is necessary to make sure that $G/H$ is Hausdorff.
+\end{proof}
+
+This looks a bit like the completion might be exact, at least in good cases. But this it is quite dangerous to try to think about these properties in that way: the category of topological abelian groups is not abelian as there is too much freedom in the choice of topology, and therefore one has to be quite careful when talking about exact sequences. This can, however, be fixed by restricting into a suitable subcategory which is restrictive enough on topology.
+
+Quite often, a convenient way of specifying an element of $\widehat G$, where $G$ has the topology induced by a filtration, is to give an infinite sum
 \begin{equation*}
 \sum_i x_i
 \end{equation*}
-where $x_i \in G_i$. This is interpreted as the limit of the Cauchy sequence formed by the partial sums.
+where $x_i \in G_i$. This is interpreted as the limit of the Cauchy sequence formed by the partial sums. It is clear that every element of the completion $\widehat G$ can be expressed in this form. 
 
 \subsection{Completions of topological rings and modules}
 
+A \emph{topological ring} $A$ is a topological abelian group with a continuous multiplicaiton map $A \times A \to A$ satisfying the ring axioms. If $A$ is a topological ring, then, quite naturally, a \emph{topological $A$-module} is a topological abelian group together with a continuous multiplication $A \times M \to M$. We define the \emph{completion} of a topological ring and a topological module to be the completion as a topological abelian group.
 
+Using the constructions we have for completion, it is easy to see that if $A$ is Hausdorff and first countable, then $\widehat A$ is a topological ring, and similarly if $M$ is Hausdorff and first countable, then $\widehat M$ is both a topological $A$ and a topological $\widehat A$-module.
 
+If $A$ is a ring ($M$ an $A$-module), then a \emph{filtration} on $A$ (on $M$) is a descending sequence $I_1 \supset I_2 \supset ...$ of ideals (descending sequence $M_1 \supset M_2 \supset ...$ of submodules). Again, it is easy to see that filtration on $A$ gives it a structure of a topological ring, and a filtration $(M_i)$ on $M$ satisfying $I_j M_i \subset M_{i+j}$ gives rise to a structure of a topological $A$-module. 
+
+The most common filtration occurring in commutative algebra is the \emph{$I$-adic} filtration: we have an ideal $I$ of $A$, and we set $I_i = I^i$. Similarly we have the $I$-adic filtration on $M$ defined by $M_i = I^i M$. The induced topology is called the \emph{$I$-adic topology}. Two well known theorems in commutative algebra can be given a topological meaning.
+
+\begin{prop}
+\textbf{(Topological Krull's intersection theorem.)}
+\end{prop}
 \subsection{Hensel's lemma}
 
-One of the nicest property of complete rings is what is known as the Hensel's lemma. The version we are going to give states that if a polynomial $f \in A[x]$ has a simple root in $A/m_A$, then it does have a root in $\hat A$.
+One of the nicest property of complete rings is what is known as the Hensel's lemma. The version we are going to give states that if a polynomial $f \in A[x]$ has a simple root in $A/m_A$, then it does have a root in $\widehat A$.
 
-\begin{thm} \textbf{Hensel's lemma.} Let $f$ be a polynomial in $A[x]$ which has a simple root $[a_0] \in A/m_A$. Now there is an element $a \in \hat A$ such that $a = a_0$ modulo $m_A$ and $f(a) = 0$.
+\begin{thm} \textbf{Hensel's lemma.} Let $f$ be a polynomial in $A[x]$ which has a simple root $[a_0] \in A/m_A$. Now there is an element $a \in \widehat A$ such that $a = a_0$ modulo $m_A$ and $f(a) = 0$.
 \end{thm} 
 \begin{proof}
-It is enough to find sums $a_0 + a_1 + ... + a_n$, where $a_i \in m_A^i$, such that $f(a_0 + ... + a_n) \in m_A^{n+1}$ for all $n$. This is because, first of all, passing to infinite sum $a_0 + a_1 + ...$ clearly defines an element of the completion $\hat A$, and second of all, because clearly now the limit value $f(a_0 + a_1 + ...)$ is $0 \in \hat A$. 
+It is enough to find sums $a_0 + a_1 + ... + a_n$, where $a_i \in m_A^i$, such that $f(a_0 + ... + a_n) \in m_A^{n+1}$ for all $n$. This is because, first of all, passing to infinite sum $a_0 + a_1 + ...$ clearly defines an element of the completion $\widehat A$, and second of all, because clearly now the limit value $f(a_0 + a_1 + ...)$ is $0 \in \widehat A$. 
 
 Assume we have already chosen $a_0,...,a_n$, and would like to choose $a_{n+1} \in m_A^{n+1}$. Now we have
 \begin{equation*}
@@ -372,20 +463,20 @@ and we are done by induction.
 The structure of completed rings is quite simple, at least for the rings most common in algebraic geometry. In this subsection we concentrate to $k$-algebras, where $k$ is a field of characteristic 0.
 
 \begin{lem}
-Let $A$ contain a field of characteristic 0. Now $\hat A$ contains a coordinate field, i.e., a field mapping isomorphically onto $A/m_A$ in the quotient map $A \to A/m_A$.
+Let $A$ contain a field of characteristic 0. Now $\widehat A$ contains a coordinate field, i.e., a field mapping isomorphically onto $A/m_A$ in the quotient map $A \to A/m_A$.
 \end{lem}
 \begin{proof}
 Clearly $A$ contains a field of characteristic 0 if and only if it contains $\Q$. Denote by $K$ the residue field $A/m_A$. 
 
-Let $(\alpha_i)_{i \in I}$ be a transcendence basis for $K$ over $\Q$, i.e., a collection of elements of $K$ satisfying no nontrivial algebraic relations over $\Q$ such that $K$ is algebraic over $\Q((\alpha_i)_{i \in I})$. Now we can clearly choose elements $a_i \in A$ such that $a_i = \alpha_i$ modulo $m_A$, and thus we see that $\Q((\alpha_i)_{i \in I}) \cong \Q((a_i)_{i \in I}) \subset A$. Hence $\Q((a_i)_{i \in I})$ is also contained in $\hat A$.
+Let $(\alpha_i)_{i \in I}$ be a transcendence basis for $K$ over $\Q$, i.e., a collection of elements of $K$ satisfying no nontrivial algebraic relations over $\Q$ such that $K$ is algebraic over $\Q((\alpha_i)_{i \in I})$. Now we can clearly choose elements $a_i \in A$ such that $a_i = \alpha_i$ modulo $m_A$, and thus we see that $\Q((\alpha_i)_{i \in I}) \cong \Q((a_i)_{i \in I}) \subset A$. Hence $\Q((a_i)_{i \in I})$ is also contained in $\widehat A$.
 
-Now we may extend $\Q((a_i)_{i \in I})$ into $K$ by using Hensel's and (if needed) transfinite induction. This works because if we have an intermediate field extension $\Q((a_i)_{i \in I}) \subset M \subset K$, then also $M$ has characteristic $0$, and hence any element of $K$ is a simple root of a polynomial with coefficients in $M$, and hence can be lifted to $\hat A$ by Hensel's lemma.
+Now we may extend $\Q((a_i)_{i \in I})$ into $K$ by using Hensel's and (if needed) transfinite induction. This works because if we have an intermediate field extension $\Q((a_i)_{i \in I}) \subset M \subset K$, then also $M$ has characteristic $0$, and hence any element of $K$ is a simple root of a polynomial with coefficients in $M$, and hence can be lifted to $\widehat A$ by Hensel's lemma.
 \end{proof}
 
 Next we see that the completion of local Noetherian rings are especially simple.
 
 \begin{thm}
-Let $A$ contain a field of characteristic 0, and assume $A$ is Noetherian. Now $\hat A$ is isomorphic to $K[[x_1,...,x_n]]/I$, where $K = A/m_A$.
+Let $A$ contain a field of characteristic 0, and assume $A$ is Noetherian. Now $\widehat A$ is isomorphic to $K[[x_1,...,x_n]]/I$, where $K = A/m_A$.
 \end{thm}
 \begin{proof}
 Lol, idk tbh fam. Smh srs.
@@ -394,7 +485,7 @@ Lol, idk tbh fam. Smh srs.
 Perhaps the most interesting corollary for us is the following, which can be interpreted as saying that nonsingular varieties are formally locally like an affine space.
 
 \begin{cor}
-Let $A$ be a regular local ring of dimension $d$. Now $\hat A \cong K[[x_1,...,x_d]]$, where $K = A/m_A$.
+Let $A$ be a regular local ring of dimension $d$. Now $\widehat A \cong K[[x_1,...,x_d]]$, where $K = A/m_A$.
 \end{cor}
 \begin{proof}
 Follows from the definitions using logic.
