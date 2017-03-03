@@ -737,8 +737,23 @@ Sometimes we cannot resolve a singular point no matter how many times we blow it
 In some cases it is very easy to see what \emph{blowing up a subvariety} $Y$ of $\Aff^n$ should mean. Take for example the $z$-axis $Z$ in $\Aff^3$. We can think about $\Aff^3$ as an infinite family of affine $2$-spaces parametrized by the $z$-coordinate, and we interpret blowing up the $z$-axis (almost) just as blowing up the origin at each of these planes simultaneously. We end up with the blow-up map $\bl (\Aff^n) \times \Aff^1 \cong \bl_Z(\Aff^3) \to \Aff^3$. The strict and total transforms of subvarities are defined similarly as before.
 
 \begin{ex}
-We can now resolve the Whitney umbrella, which is cut out by $x^2 - y^2 z$. The coordinates for $\bl_Z (A^3)$ are $(x,y,z,[u:v])$, and the relation $xv-yu = 0$ is satisfied. 
+We can now resolve the Whitney umbrella, which is cut out by $x^2 - y^2 z$. The coordinates for $\bl_Z (A^3)$ are $(x,y,z,[u:v])$, and the relation $xv-yu = 0$ is satisfied. On the first chart, we have 
+\begin{equation*}
+y = x {v \over u},
+\end{equation*} 
+and hence the defining equation can be transformed into
+\begin{equation*}
+x^2 -  x^2\left( {v \over u} \right)^2 z = x^2 ( 1 - \left( {v \over u} \right)^2 z ).
+\end{equation*}
+Therefore the first chart gives us the equation $u^2 - v^2 z = 0$. Similarly we can calculate the strict transform in the second chart, but we get exactly the same equation from there. Hence the strict transform of the Whitney umbrella is the closed subvariety of $\Aff^3 \times \Proj^1$ cut out by the equations
+\begin{align*}
+xv-yu &= 0\\
+u^2 - v^2 z &= 0.
+\end{align*}
+Moreover, we can see from the local equations that the strict transform is nonsingular, so we have managed to resolve the Whitney umbrella.
 \end{ex}
+
+\subsection{Blowing up, the general construction}
 
 \section{Hironaka's Proof}\label{HirRes}
 
