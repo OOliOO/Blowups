@@ -683,7 +683,7 @@ Outside the origin the preimage of a point of the nodal curve $C$ is a single po
 
 \subsection{Blowing up points in an affine space}
 
-Blowing up a point in an affine space $\Aff^n$ is essentially very similar to what happened at the beginning of this section, although it is a bit more technical. We are only going to describe how to blow up the origin, the technique trivially generalizes to other points as well. Throughout this subsection we are working over an algebraically closed field.
+Blowing up a point in an affine space $\Aff^n$ is essentially very similar to what happened at the beginning of this section, although it is a bit more technical. We are only going to describe how to blow up the origin, the technique trivially generalizes to other points as well. From now on, unless otherwise stated, we work over an algebraically closed field.
 
 The basic idea is to replace the origin with $\Proj^{n-1}$ whose points corresponds to all the ''tangent directions'' at 0. We begin by taking the product space $\Aff^n \times \Proj^{n-1}$, whose coordinates we are going to denote by $(x_1,...,x_n, [u_1:...:u_n])$. As we would like to have only the points of form $(x_1,...,x_n, [x_1:...:,x_n])$, we set the blown up space $\bl_0 (\Aff^n)$ (where 0 stands for the fact that we blow up the origin) to be the closed subvariety of $\Aff^n \times \Proj^{n-1}$ cut out by equations $x_i u_j - x_j u_i = 0$. The first projection map clearly induces a morphism $\bl_0 (\Aff^n) \to \Aff^n$ that is isomorphism outside the origin of $\Aff^n$. Over the origin we have the whole projective $(n-1)$-space, so we have managed to do exactly what we wanted.
 
@@ -724,6 +724,21 @@ F_d(1,z) + x F_{d+1} (1,z) + ... + x^{n-d} F_n (1,z),
 from which we see that the points of the strict transform $C^{st}$ lying over the origin in the first chart are exactly the ones having $x=0$ and $z$ satisfying $F_d(1,z)$, which by assumption splits into \emph{distinct} linear factors. As the intersection multiplicity with $x=0$ is 1 at each of these points, we see that the points must be simple. In the other chart one does exactly the same things, and by symmetry we can conclude that all points lying over the origin in the strict transformation $X^{st}$ are simple.
 \end{ex}
 
+\begin{ex}
+A single blow-up may not be able to resolve the singularity even in the case of plane curves. Take the curve $y^2 - x^5 = 0$. The strict transform of in the first chart is cut out by $z^2 - x^3$, which has cusp at the origin. This could be resolved by blowing up the origin again (which we strictly speaking don't know how to do yet, because the strict transform is not necessarily contained in a affine space). 
+\end{ex}
+
+\begin{ex}
+Sometimes we cannot resolve a singular point no matter how many times we blow it up. The famous example of this is the \emph{Whitney umbrella} which is an algebraic surface in $\Aff^3$ cut out by $x^2 - y^2 z$. We compute the strict transform on the $z$-chart with coordinates $x',y',z$ where $x=x'z$ and $x=x'z$, and see that it is cut out by the equation $z^{-2} (x'^2 z^2 - y'^2z^3) = x'^2 - y'^2z$, which is essentially the same equation! Therefore blowing up the origin can never resolve the singularity. The singularity of the Whitney umbrella can however be resolved by blowing up, but instead of blowing up a point, we need to blow up the whole $z$-axis.
+\end{ex}
+
+\subsection{Blowing up simple subvarities}
+
+In some cases it is very easy to see what \emph{blowing up a subvariety} $Y$ of $\Aff^n$ should mean. Take for example the $z$-axis $Z$ in $\Aff^3$. We can think about $\Aff^3$ as an infinite family of affine $2$-spaces parametrized by the $z$-coordinate, and we interpret blowing up the $z$-axis (almost) just as blowing up the origin at each of these planes simultaneously. We end up with the blow-up map $\bl (\Aff^n) \times \Aff^1 \cong \bl_Z(\Aff^3) \to \Aff^3$. The strict and total transforms of subvarities are defined similarly as before.
+
+\begin{ex}
+We can now resolve the Whitney umbrella, which is cut out by $x^2 - y^2 z$. The coordinates for $\bl_Z (A^3)$ are $(x,y,z,[u:v])$, and the relation $xv-yu = 0$ is satisfied. 
+\end{ex}
 
 \section{Hironaka's Proof}\label{HirRes}
 
