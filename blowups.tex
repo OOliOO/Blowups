@@ -7,15 +7,19 @@
 \usepackage{amsfonts}         
 \usepackage{amsmath}
 \usepackage{amssymb}
+\usepackage{mathrsfs}
 \usepackage{hyperref}
 \usepackage[all]{hypcap}
 \usepackage{tikz}
 \usetikzlibrary{matrix, arrows, decorations.pathmorphing}
+\DeclareMathAlphabet{\mathpzc}{OT1}{pzc}{m}{it}
 
 \newcommand{\R}{\mathbb{R}}
 \newcommand{\C}{\mathbb{C}}
 \newcommand{\Q}{\mathbb{Q}}
 \newcommand{\N}{\mathbb{N}}
+\newcommand{\Aff}{\mathbb{A}}
+\newcommand{\Proj}{\mathbb{P}}
 \newcommand{\No}{\mathbb{N}_0}
 \newcommand{\Z}{\mathbb{Z}}
 \newcommand{\OO}{\mathcal{O}}
@@ -27,8 +31,14 @@
 \newcommand{\im}{\mathrm{im}}
 \newcommand{\coim}{\mathrm{coim}}
 \newcommand{\spec}{\mathrm{Spec}}
+\newcommand{\gr}{\mathrm{gr}}
 \newcommand{\plim}{\varprojlim}
 \newcommand{\dlim}{\varinjlim}
+\newcommand{\bl}{\mathrm{Bl}}
+\newcommand{\proj}{\mathrm{Proj}}
+\newcommand{\rproj}{\mathpzc{Proj}}
+\newcommand{\supp}{\mathrm{supp}}
+\newcommand{\cosupp}{\mathrm{cosupp}}
 
 
 \newcommand{\sectionbreak}{\clearpage}
@@ -587,7 +597,7 @@ a_{n+1} = - {f(a_0 + ... + a_n) \over f'(a_0 + ... + a_n)},
 and we are done by induction.
 \end{proof}
 
-\subsection{Structure of complete local Noetherian rings}
+\subsection{Structure of completetions of local Noetherian rings}
 
 One of the great things about completion is how it simplifies the theory of local rings. Although localization tries to encapsulate only the local information near a point in a variety, it usually contains very much information, as the open sets of the Zariski topology are so large. Therefore the structure of the local rings is also quite varied. However, once we require completeness, the rings have surprisingly little structural freedom. In this subsection we concentrate on local $k$-algebras where $k$ is a field of characteristic 0.
 
@@ -602,25 +612,315 @@ Let $(\alpha_i)_{i \in I}$ be a transcendence basis for $K$ over $\Q$, i.e., a c
 Now we may extend $\Q((a_i)_{i \in I})$ into $K$ by using Hensel's and (if needed) transfinite induction. This works because if we have an intermediate field extension $\Q((a_i)_{i \in I}) \subset M \subset K$, then also $M$ has characteristic $0$, and hence any element of $K$ is a simple root of a polynomial with coefficients in $M$, and hence can be lifted to $\widehat A$ by Hensel's lemma.
 \end{proof}
 
-Next we see that the completion of local Noetherian rings are especially simple.
+To make use of the previous result, we introduce a useful construction. Given a (not necessarily local) ring $A$, we can construct the \emph{graded ring} associated to $I$-adic filtration, denoted by $\gr_I (A)$ or just $\gr (A)$, as follows: as an abelian group, it is just the direct sum $\bigoplus_{i=0}^\infty (I^i / I^{i+1})$. To define it as a graded ring, we simply note that the map $(I^i / I^{i+1}) \times (I^j / I^{j+1}) \to I^{i+j} / I^{i+j+1}$ induced by the multiplication of $A$ is well defined. 
 
-\begin{thm}
-Let $A$ contain a field of characteristic 0, and assume $A$ is Noetherian. Now $\widehat A$ is isomorphic to $K[[x_1,...,x_n]]/I$, where $K = A/m_A$.
-\end{thm}
+Assume that we have a morphism of $f: A \to B$ of general commutative rings, and let us have ideals $I \subset A$ and $J \subset B$ such that $fI \subset J$. Now also $fI^i \subset J^i$, and therefore we may define a map $\gr_I (A) \to \gr_J (B)$ of graded rings.
+
+\begin{lem}
+Let us have a homomorphism $f: A \to B$ of rings, and ideals $I \subset A$ and $J \subset B$ be such that $fI \subset J$ and the induced map $A / I \to B / J$ is a surjection. If the image of $I$ generates $J$ over $B$, then the associated map $\gr (A) \to \gr (B)$ is surjective.
+\end{lem}
 \begin{proof}
-Lol, idk tbh fam. Smh srs.
+It is enough to show that for all $i$, the degree $i$ part of the associated map is surjective. The case $i=0$ has already been taken care of as $A/I \to B/J$ was assumed to be surjective. By the assumption that $f I$ generates $J$ over $B$, we see that $f I^i$ generates $J^i$ over $B$. Hence the image of $I^i / I^{i+1}$ generates $J^i / J^{i+1}$ over $B/J$. But as $J^i / J^{i+1}$ can be also thought as an $A/I$ algebra, and as $A/I \to B/J$ is surjective, and finally as the associated map $I^i / I^{i+1} \to J^i / J^{i+1}$ is a map of $(A/I)$-modules, we see that the map $I^i / I^{i+1} \to J^i / J^{i+1}$ must be surjective.
 \end{proof}
 
-Perhaps the most interesting corollary for us is the following, which can be interpreted as saying that nonsingular varieties are formally locally like an affine space.
+Using the above lemma, we can prove an important theorem concerning the structure of completions.
 
-\begin{cor}
-Let $A$ be a regular local ring of dimension $d$. Now $\widehat A \cong K[[x_1,...,x_d]]$, where $K = A/m_A$.
-\end{cor}
+\begin{thm}
+Let $A$ be a Noetherian local ring containing a field of characteristic 0. Now $\widehat A$ is isomorphic to $K[[x_1,...,x_n]]/I$, where $K = A/m_A$.
+\end{thm}
 \begin{proof}
-Follows from the definitions using logic.
+As $A$ is Noetherian, the maximal ideal $m_A$ is generated by a finite collection $a_1,...,a_n$ of elements. Moreover the images of these elements in $\widehat A$ generate the maximal ideal $\widehat{m_A}$. As $K$ is contained in $\widehat A$, we get a map of rings $K[x_1,...,x_n] \to \widehat{A}$ which sends $x_i$ to $a_i$. If we denote by $I$ the ideal of $K[x_1,...,x_n]$ generated by all the $x_i$, then we can use the above lemma to see that the associated map $\gr_I(K[x_1,...,x_n]) \to \gr_{\widehat{m_A}}(\widehat{A})$ is surjective. But this means that $K[x_1,...,x_n] / I^i \to \widehat{A} / \widehat{m_A}^i$ is surjective for all $i$. 
+
+We notice that $\plim (K[x_1,...,x_n] / I^i) = K[[x_1,...,x_n]]$ and $\plim (\widehat{A} / \widehat{m_A}^i) = \widehat A$, and hence we are done using the next lemma.
+\end{proof}
+
+\begin{lem}
+Let $G \to H$ be a map of abelian groups with filtrations $(G_i)$ and $(H_i)$ respectively. Assume that the image of $G_i$ is contained in $H_i$, i.e., that we have induced maps $G / G_i \to H / H_i$. If these induced maps are surjective, then so is the limit map $\plim (G/G_i) \to \plim (H / H_i)$.
+\end{lem}
+\begin{proof}
+This is essentially proven in \fref{ExactCompletion}.
+\end{proof}
+
+One of the nicer theorem concerning completions tells us, among other things, that if we have a regular point $p$ on a variety $X$, then formally locally the variety looks like an affine space near the point $p$, i.e., $\widehat \OO_{X,p} \cong K[[x_1,...,x_n]]$. Before proving this, however, we need a lemma.
+
+\begin{lem}
+Let $A$ be a regular local ring of dimension $d$, $K = A / m_A$,  and let $m_A$ be generated by a regular sequence $a_1,...,a_d$. Now the associated graded ring is isomorphic to $K[x_1,...,x_d]$ via a map $K[x_1,...,x_d] \to \gr_{m_A} (A)$ sending $x_i$ to the image of $a_i$ in $m_A / m_A^2$.
+\end{lem}
+\begin{proof}
+As $a_i$ generate the maximal ideal of $A$, we see that the map $k[x_1,...,x_d] \to \gr (A)$ is surjective (it is clear that $\gr_I (k[x_1,...,x_d])$, where $I  = (x_1,...,x_d)$, is just $k[x_1,...,x_d]$ with the usual grading). We need to show that this is an injection, which is equivalent to stating that for all nonzero homogeneous polynomials $F$ we have $F (a_1,...,a_d) \not = 0$.
+
+Assume that this is not the case, i.e., we have some nonzero homogeneous $F$ of degree $n$ such that $F(a_1,...,a_d) = 0$. We can lift the coefficients of $F$ from $K$ to $A$ and obtain a homogeneous polynomial $\widetilde F \in A [x]$ such that $\widetilde F (a_1,...,a_d) \in m_A^{n+1}$. Thus for some homogeneous polynomial $H$ of degree $n+1$, we have that $(\widetilde F - H) (a_1,...,a_d) = 0$, i.e., we have a nontrivial algebraic relation, defined by a polynomial $f \in A[x]$ with no constant terms, among the $a_i$. 
+
+But this leads to a contradiction. If $x_1$ divides $f$, we are done, as $a_1$ is a zerodivisor. Otherwise we move to modulo $a_1$ and to a new polynomial $f(0,x_2,...,x_d)$. Then we do the same thing for $a_2$ and $a_3$ and so on, until we find that some $a_{i}$ is a zerodivisor modulo $a_1,...,a_{i-1}$. This must happen at least when $i = d$, as the polynomial $f$ had no constant terms. This concludes the proof.
+\end{proof}
+
+\begin{thm}
+Let $A$ be a regular local ring of dimension $d$. Now there is an isomorphism $K[[x_1,...,x_d]] \isomto \widehat A$, where $K = A/m_A$, and $x_1,...,x_d$ is sent to an image of a regular sequence $a_1,...,a_d$ generating $m_A$ in $\widehat A$.
+\end{thm}
+\begin{proof}
+Let $a_1,...,a_d$ be a regular sequence generating the maximal ideal $m_A$ of $A$. By the previous lemma we have that the map $\gr_I (K[x_1,...,x_d]) \to \gr_{m_A} (A)$, where $I = (x_1,...,x_d)$, associated to the map sending $x_i$ to $a_i$ is an isomorphism. By dimensionality, we can therefore conclude that $K[x_1,...,x_d] / I^i \to A/m_A^i$ is an isomorphism for all $i$, which shows that the respective completions are isomorphic as well, proving the theorem.
 \end{proof}
 
 \section{Blowing Up}\label{BlowUp}
+
+One of the most common ways of getting rid of singularities is called \emph{blowing up}. The simplest case is blowing up a point on a plane, which we are going to introduce through an example now. Recall our old friend, the nodal curve, which has a singularity at the origin. We are going to get rid of the singularity by blowing up the origin.
+
+\begin{figure}\label{node3}
+\begin{center}
+\includegraphics{pics/node.png}
+\caption{The nodal curve.}
+\end{center}
+\end{figure}
+
+We begin by mapping each point of the curve, except the origin, into a three dimensional space via the map that sends $(x,y)$ to $(x,y,y/x)$. The $z$-coordinate is just the slope of the direct line connecting the point $(x,y)$ with the origin.
+
+\begin{figure}\label{blownUpNode}
+\begin{center}
+\includegraphics[scale=0.8]{pics/blown_up_node.png}
+\caption{The Zariski closure of the image of nodal curve in affine 3-space.}
+\end{center}
+\end{figure}
+
+When we embed the nodal curve, except of course the origin, this way into the affine three space $\Aff^3$, the resulting space curve won't have any points on the locus $x=0$. The points $(x,y,z)$ belonging to the image satisfy two algebraic relations. First of all, they must satisfy $y^2 - x^3 - x^2 = 0$ for this was the defining equation for the nodal curve. Secondly, we must have $zx = y$ because we sent the point $(x,y)$ of the curve to $(x,y,y/x)$.
+
+Any point of $\Aff^3$ having $x=0$ and $y=0$ satisfy the two algebraic relations we just mentioned, and in fact, if we denote by $C'$ the set of points in $\Aff^3$ lying in the image of the nodal curve without origin, we can see that the two polynomial equations cut out exactly $C'$ and the $z$-axis. We can do better. The \emph{Zariski closure} $\overline{C'}$ of $C'$ in $\Aff^3$ is the smallest subset of $\Aff^3$ that is given by some polynomial equation system and that contains $C'$. In this case it is the set of points cut out by $zx - y$ and $z^2 - x - 1$, and it is visualized in \fref{blownUpNode}. Projection $\Aff ^3 \to \Aff^2$ sending $(x,y,z) \to (x,y)$ maps the Zariski closure $\overline{C'}$ to the nodal curve $C$, and this mapping $\overline{C'} \to C$ is called the \emph{blow-up}.
+
+Outside the origin the preimage of a point of the nodal curve $C$ is a single point in $\overline{C'}$, and the preimage of the origin consist of two points that correspond to the two branches. The blown up curve $\overline{C'}$ contains no singularities, so we have managed to resolve them. In this section, we are going to give the basic constructions and results of blow-ups.
+
+\subsection{Blowing up points in an affine space}
+
+Blowing up a point in an affine space $\Aff^n$ is essentially very similar to what happened at the beginning of this section, although it is a bit more technical. We are only going to describe how to blow up the origin, the technique trivially generalizes to other points as well. From now on, unless otherwise stated, we work over an algebraically closed field.
+
+The basic idea is to replace the origin with $\Proj^{n-1}$ whose points corresponds to all the ''tangent directions'' at 0. We begin by taking the product space $\Aff^n \times \Proj^{n-1}$, whose coordinates we are going to denote by $(x_1,...,x_n, [u_1:...:u_n])$. As we would like to have only the points of form $(x_1,...,x_n, [x_1:...:,x_n])$, we set the blown up space $\bl_0 (\Aff^n)$ (where 0 stands for the fact that we blow up the origin) to be the closed subvariety of $\Aff^n \times \Proj^{n-1}$ cut out by equations $x_i u_j - x_j u_i = 0$. The first projection map clearly induces a morphism $\bl_0 (\Aff^n) \to \Aff^n$ that is isomorphism outside the origin of $\Aff^n$. Over the origin we have the whole projective $(n-1)$-space, so we have managed to do exactly what we wanted.
+
+It is however more interesting to see what happens to \emph{subvarieties} $X$ of $\Aff^n$ under the blow-up. The preimage of $X$ in the map $\bl (\Aff^n) \to \Aff^n$ is called the \emph{total transform} of $X$, and it is denoted by $X^{tot}$. The Zariski closure of the preimage of $X \backslash \{ 0 \}$ in $\bl (\Aff^n)$ is called the \emph{strict transform} $X^{st}$ of $X$, and taking the strict transform is what is usually meant when we blow up a point on $X$. It is clear that the blow-up map $\bl (\Aff^n) \to \Aff^n$ restricts to give morphisms $X^{tot} \to X$ and $X^{st} \to X$.
+
+\begin{ex}
+Lets get back to the example of the nodal curve $C$ cut out of $\Aff^2$ by the polynomial $y^2 - x^3 - x^2$. We denote the points of the product variety $\Aff^2 \times \Proj^2$ by $(x,y, [u:v])$, so the blown up plane $\bl (\Aff^2)$ is cut out by the polynomial $xv - yu$. Now the preimage of $C$ in $\bl (\Aff^2)$ is cut out by furthermore requiring the equation $y^2 - x^3 - x^2$ to be satisfied. It is easy to see that if $(x,y) \not =  (0,0)$, then $(x,y,[x:y])$ is the only point of $C^{tot}$ lying over it, and as every point of form $(0,0, [u:v])$ is in $C^{tot}$, we see that the preimage of the origin is the whole $\Proj^1$.
+
+We can compute the strict transform of $C$ locally. We pass to the locus where $u \not = 0$, so that we can parametrize the points by $(x,y,z)$ where $z = v/u$. The part of the blown up plane lying here is cut out by $xz - y$. Now we notice that, as an algebraic variety, this is isomorphic to affine 2-space $\Aff^2$ by the map $(x,z) \mapsto (x,xz,z)$. The preimage of $C$ minus the origin in this latter affine 2-space is the zero set of $x^2 z^2 - x^3 - x^2$ outside the locus $x=0$ (if $x=0$, then also $xz=y$ is 0). The smallest algebraic set containing the preimage is the one cut out by $z^2 - x - 1$, because the resulting algebraic set must be one dimensional, and because the curve defined by the above equation is irreducible. 
+
+We conclude that in the first chart of $\Aff^2 \times \Proj^1$ the strict transform of $C^{st}$ is cut out by the equations $xz - y$ and $z^2 - x - 1$, and hence the equations $xv - yu$ and $v^2 - (x+1)u^2$ almost cut out the strict transform in $\Aff^2 \times \Proj^1$. As there may still be some extra points in the locus $u=0$, we compute the strict transform in the second chart of $\Aff^2 \times \Proj^1$ and see that the equation $1 - y z^{-3} - z^{-2}$. Therefore we obtain one additional equation $v^3 - yu^3 - u^2 v = 0$. Hence the strict transform $C^{st} \subset \Aff^2 \times \Proj^1$ is given by the equations
+\begin{align*}
+xv - yu &= 0 \\
+v^2 - (x+1)u^2 &= 0 \\
+v^3 - yu^3 - u^2 v &= 0.
+\end{align*}
+\end{ex}
+
+\begin{ex}
+The procedure given in the last example easily generalizes to computing the strict transformation of a hypersurface $X \subset \Aff^n$ when blowing up the origin. Let $f$ be the defining polynomial for $X$, and let $d$ be the degree of its lowest term. For the $i^{th}$ chart of the $\Aff^{n} \times \Proj^{n-1}$ we get the relations 
+\begin{equation*}
+x_j = {u_j \over u_i} x_i  
+\end{equation*}
+and the polynomial $f(x_1,...,x_n)$ transforms into 
+\begin{equation*}
+f({u_1 \over u_i} x_i, ... ,{u_n \over u_i} x_i) = x_i^d \cdot g({u_1 \over u_i} x_i, ... ,{u_n \over u_i} x_i),
+\end{equation*}
+where $g$ is not divisible by $x_i$. As the variety in question is isomorphic to $\Aff^{n}$ with coordinates $x_i, u_1/u_i,...,u_n/u_i$, we can again conclude that the Zariski closure in the $i^{th}$ chart is cut out by the polynomial $g$. Therefore one can compute the strict transform $X^{st}$ of the hypersurface $X$ simply by finding the local equations for all the $n$ charts. Finding the strict transform of non-hypersurfaces is harder, as finding the Zariski closure is not as simple, not even locally.
+\end{ex}
+
+\begin{ex}
+Assume that we have a plane curve $C$, cut out by polynomial $f$, and that the origin is a simple singularity of degree $d$. This means that at the origin we have $d$ branches of the curve meeting transversally, i.e., their tangent lines are distinct. The lowest degree form $F_{min}$ of $f$ factors into a linear product $\prod_i (a_i x_i - b_i y_i)$ and the lines defined by these linear factors are known to be exactly the tangent lines of the branches at the origin. Hence, the degree of the form is $d$, and the linear factors are pairwisely different.
+
+Blowing up this kind of singularity resolves it immediately. We break the polynomial $f$ into a sum $F_d + F_{d+1} + ... + F_n$ of its homogeneous parts, the reader should note that $F_d = F_{min}$. We can see that the polynomial $x^{-d} f(x,xz)$ defining the strict transformation is now 
+\begin{equation*}
+F_d(1,z) + x F_{d+1} (1,z) + ... + x^{n-d} F_n (1,z),
+\end{equation*}
+from which we see that the points of the strict transform $C^{st}$ lying over the origin in the first chart are exactly the ones having $x=0$ and $z$ satisfying $F_d(1,z)$, which by assumption splits into \emph{distinct} linear factors. As the intersection multiplicity with $x=0$ is 1 at each of these points, we see that the points must be simple. In the other chart one does exactly the same things, and by symmetry we can conclude that all points lying over the origin in the strict transformation $X^{st}$ are simple.
+\end{ex}
+
+\begin{ex}
+A single blow-up may not be able to resolve the singularity even in the case of plane curves. Take the curve $y^2 - x^5 = 0$. The strict transform of in the first chart is cut out by $z^2 - x^3$, which has cusp at the origin. This could be resolved by blowing up the origin again (which we strictly speaking don't know how to do yet, because the strict transform is not necessarily contained in a affine space). 
+\end{ex}
+
+\begin{ex}
+Sometimes we cannot resolve a singular point no matter how many times we blow it up. The famous example of this is the \emph{Whitney umbrella} which is an algebraic surface in $\Aff^3$ cut out by $x^2 - y^2 z$. We compute the strict transform on the $z$-chart with coordinates $x',y',z$ where $x=x'z$ and $x=x'z$, and see that it is cut out by the equation $z^{-2} (x'^2 z^2 - y'^2z^3) = x'^2 - y'^2z$, which is essentially the same equation! Therefore blowing up the origin can never resolve the singularity. The singularity of the Whitney umbrella can however be resolved by blowing up, but instead of blowing up a point, we need to blow up the whole $z$-axis.
+\end{ex}
+
+\subsection{Blowing up simple subvarities}
+
+In some cases it is very easy to see what \emph{blowing up a subvariety} $Y$ of $\Aff^n$ should mean. Take for example the $z$-axis $Z$ in $\Aff^3$. We can think about $\Aff^3$ as an infinite family of affine $2$-spaces parametrized by the $z$-coordinate, and we interpret blowing up the $z$-axis (almost) just as blowing up the origin at each of these planes simultaneously. We end up with the blow-up map $\bl (\Aff^n) \times \Aff^1 \cong \bl_Z(\Aff^3) \to \Aff^3$. The strict and total transforms of subvarities are defined similarly as before.
+
+\begin{ex}
+We can now resolve the Whitney umbrella, which is cut out by $x^2 - y^2 z$. The coordinates for $\bl_Z (A^3)$ are $(x,y,z,[u:v])$, and the relation $xv-yu = 0$ is satisfied. On the first chart, we have 
+\begin{equation*}
+y = x {v \over u},
+\end{equation*} 
+and hence the defining equation can be transformed into
+\begin{equation*}
+x^2 -  x^2\left( {v \over u} \right)^2 z = x^2 ( 1 - \left( {v \over u} \right)^2 z ).
+\end{equation*}
+Therefore the first chart gives us the equation $u^2 - v^2 z = 0$. Similarly we can calculate the strict transform in the second chart, but we get exactly the same equation from there. Hence the strict transform of the Whitney umbrella is the closed subvariety of $\Aff^3 \times \Proj^1$ cut out by the equations
+\begin{align*}
+xv-yu &= 0\\
+u^2 - v^2 z &= 0.
+\end{align*}
+Moreover, we can see from the local equations that the strict transform is nonsingular, so we have managed to resolve the Whitney umbrella.
+\end{ex}
+
+\subsection{Blowing up, the general construction}
+
+Let $X$ be a scheme and $\mathscr{I}$ a sheaf of ideals (we require them to be quasicoherent and finite type) on $X$. The \emph{blow-up of $X$ along $\mathscr{I}$}, $\bl_{\mathscr{I}} (X)$, is defined as 
+\begin{equation*}
+\rproj ( \OO_X \oplus \mathscr{I} \oplus \mathscr{I}^2 \oplus ...),
+\end{equation*}
+where $\OO_X \oplus \mathscr{I} \oplus \mathscr{I}^2 \oplus ...$ is to be interpreted as a sheaf of graded algebras on $X$. From the basic properties of the global proj, we know that $\bl_\mathscr{I} (X)$ comes together with a canonical projection map $\bl_\mathscr{I}(X) \to X$. If $Y$ is a closed subscheme of $X$ corresponding to a sheaf of ideals $\mathscr{I}$ on $X$, then we define the \emph{blow-up of $X$ along $Y$}, $\bl_Y (X)$, to be $\bl_\mathscr{I} (X)$.
+
+If $Z \subset X$ is a closed subscheme, then we define the \emph{strict} and the \emph{total transform} of $Z$ under the blow-up $\bl_\mathscr{I}(X) \to X$ or $\bl_Y(X) \to X$ similarly as we did before. 
+
+\begin{ex}
+Our new notion coincides with the only one. Let's blow up the origin in an affine $n$-space $\Aff_k^n$. The coordinate ring for $\Aff^n$ is just $A = k[x_1,...,x_n]$, and the origin corresponds to the ideal $I = (x_1,...,x_n)$. As we are working over an affine scheme, we only need to show that $\proj (A \oplus I \oplus I^2 \oplus ...)$ naturally corresponds to our earlier notion of blow-up.
+
+Perhaps the easiest way to think about $A \oplus I \oplus I^2 \oplus ...$ is to think it as the Rees-algebra $A[It] \subset A[t]$. This is a quotient of the graded $A$-algebra $A[y_1, ... , y_n]$, where we assume that $y_1,...,y_n$ have no algebraic relations amongst themselves, whose proj is just $\Proj_{\Aff^n}^{n-1}$, which in turn is naturally isomorphic to $\Aff^n \times_k \Proj_k^{n-1}$. Hence it is a closed subscheme of $\Aff^n \times_k \Proj_k^{n-1}$, as was our original definition.
+
+What are the relations we must introduce between $y_i$ in order to get the Rees-algebra $A[It]$? At least we must have $x_i y_j - x_j y_i = 0$, which are exactly the relations that cut the blow-up of our original definition. But are these relations enough this time? As it turns out, they are, which we are going to prove next.
+
+Every polynomial $f \in A[y_1,...,y_1]$ can be broken into a sum
+\begin{equation*}
+\sum_i c_i M_i(x_1,...,x_n)N_i(y_1,...,y_n),
+\end{equation*}
+where $c_i \in k$, and $M_i, N_i$ are monomials. Image of each such term in $A[It]$ is of form
+\begin{equation*}
+c M(x_1,...,x_n)N(x_1,...,x_n)t^{\deg (N)},
+\end{equation*}
+which is a monomial in $A[It] \subset k[x_1,...,x_n,t]$. For each such monomial in $A[It]$ we may collect all the summands, whose image corresponds to the same monomial up to multiplication by a scalar in $k$. All such terms are of form $c' M'(x_1,...,x_n)N'(x_1,...,x_n)$ such that
+\begin{equation*}
+M'(x_1,...,x_n)N'(x_1,...,x_n)t^{\deg (N')} = M(x_1,...,x_n)N(x_1,...,x_n)t^{\deg (N)},
+\end{equation*}
+so if we form the sum of all these, we see that we obtain a polynomial $F$ that is homogeneous as an element of $A[y_1,...,y_n]$ and has as coefficients monomials of $A = k[x_1,...,x_n]$. Moreover, it is also homogeneous as a polynomial in $k[x_1,...,x_n,y_1,...,y_n]$.
+
+Assume now that $f$ is a nonzero polynomial in the kernel of $A[y_1,...,y_n] \to A[It]$. Take some $F$ formed by the above-mentioned procedure. We note that $F$ must lie in the kernel as well, as different monomials in $A[It]$ are linearly independent, and the sum of all coefficients $c' \in k$ preceding the terms of the sum must be 0. We are done if we can show that $F$ is zero modulo the relations $x_i y_j - x_j y_i$. But this is almost trivial. Using the relations $x_i y_j - x_j y_i$ we may transform all the terms in $F$ into some scalar $c'$ times $M(x_1,...,x_n)N(x_1,...,x_n)$. As the sum of the scalars must be 0, the sum thus obtained will be 0, and we are done.
+\end{ex}
+
+If we blow up $X$ along an ideal sheaf $\mathscr{I}$ (along a subscheme $Y$) then nothing changes outside the cosupport of $\mathscr{I}$ (outside $Y$).
+
+\begin{prop}
+Let us have a sheaf of ideals $\mathscr{I}$ of a scheme $X$, and let $U = X \backslash \cosupp (\mathscr{I})$. Now $U$ is isomorphic to its preimage in the blow-up map. 
+\end{prop}
+\begin{proof}
+The cosupport of $\mathscr{I}$ are exactly the points around which we have a neighbourhood $V$ such that $\mathscr{I} |_V  = \OO_X |_V$. Hence it is easy to see that $\mathscr{I}|_U = \OO_U$. Hence it is enough to prove that the blow-up of a scheme $X$ along $\OO_X$ is $X$. But this is easy to do locally. If $A$ is a ring, then the Rees-algebra $A[At]$ is just $A[t]$, and hence $\proj (A[t]) = A$ naturally along the projection map. As these local projection maps glue to give the global projection map, we are done.
+\end{proof}
+
+For any morphism $f: X \to Y$ of schemes and every ideal sheaf $\mathscr{I} \subset \OO_Y$ we have the \emph{inverse image ideal sheaf} $f^{-1} \mathscr{I} \cdot \OO_X$, which is the subsheaf of $\OO_Y$ locally generated by the images of elements of $\OO_Y (U)$ in $\OO_X (f^{-1} U)$. It is not \emph{a priori} clear that this satisfies our definition of an ideal sheaf, we still need to make sure that it is finitely generated and quasicoherent.
+
+\begin{prop}
+The sheaf $f^{-1} \mathscr{I} \cdot \OO_X$ is quasicoherent and finitely generated.
+\end{prop}
+\begin{proof}
+Let $U \subset Y$ and $V \subset f^{-1}U$ be affine open subschemes of $Y$ and $X$ respectively. Now the restriction of $f^{-1} \mathscr{I} \cdot \OO_X$ is clearly generated by the image of $\mathscr{I}|_U$ in the map of rings $\OO_Y (U) \to \OO_X (V)$. Hence, locally, $f^{-1} \mathscr{I} \cdot \OO_X$ is quasicoherent and finitely generated, and we are done.
+\end{proof}
+
+An interesting property of the blow-up $\bl_\mathscr{I} (X) \to X$ along $\mathscr{I}$ is the fact that the inverse image sheaf of $\mathscr{I}$ is an invertible sheaf, i.e., locally it is generated by a single nonzerodivisor.
+
+\begin{prop}
+The inverse image sheaf of $\mathscr{I}$ under the blow-up map $\bl_\mathscr{I} (X) \to X$ is invertible.
+\end{prop}
+\begin{proof}
+By checking over all affine open $U \subset X$ we see that the ideal in question is the one given the subsheaf 
+\begin{equation*}
+\mathscr{I} \oplus \mathscr{I}^2 \oplus \mathscr{I}^3 ... \subset \OO_X \oplus \mathscr{I} \oplus \mathscr{I}^2 ... 
+\end{equation*}
+But the sheaf on $\bl_\mathscr{I} (X)$ given by this graded sheaf is exactly the first twisting sheaf $\OO_{\bl_\mathscr{I} (X)}(1)$, which is known to be invertible. This proves the claim.
+\end{proof}
+
+Moreover, blowing up along an invertible ideal sheaf doesn't change anything, so after we blow up along $\mathscr{I}$ then blowing up along the inverse image ideal sheaf does nothing.
+
+\begin{prop}
+Let $\mathscr{I}$ be an invertible sheaf of ideals on a scheme $X$. Now the blow-up morphism $\bl_{\mathscr{I}} (X) \to X$ is an isomorphism.
+\end{prop}
+\begin{proof}
+Again, we only need to check this locally. For any open affine $U \subset X$ small enough that $\mathscr{I}|U = I$ is principal and generated by a nonzerodivisor $a \in \OO_U = A$, we see that the Rees-algebra $A[It] = A[at]$ is isomorphic to $A[t]$, reducing us to the case where $I=A$ already solved earlier.   
+\end{proof}
+
+The preimage of the cosupport of $\mathscr{I}$ in the blow-up map $\bl_{\mathscr{I}} (X) \to X$ is called the \emph{exceptional divisor} of $\bl_{\mathscr{I}} (X)$. As it is the subscheme cut out by the inverse image ideal sheaf of $\mathscr{I}$, it is truly a divisor, so the name is justified. Moreover, as the sheaf of ideals is locally generated by a single nonzerodivisor, dividing by it does make sense. 
+
+\subsection{Transformations of sheaves of ideals}
+
+This section, although rather short, will be very important for us later, as it contains many important definitions. Let us have a scheme $X$ and a blow-up map $\bl_{\mathscr{I}}(X) \to X$ along $\mathscr{I}$ and let $\mathscr{J}$ be an ideal sheaf. There are four ways to transform the ideal $\mathscr{J}$ under blow-up:
+
+\begin{itemize}
+\item The \emph{total transform} $\mathscr{J}^{tot}$ of $\mathscr{J}$ is just the inverse image ideal sheaf under the map $\bl_{\mathscr{I}}(X) \to X$.
+
+\item The \emph{strict transform} $\mathscr{J}^{st}$ of $\mathscr{J}$ is the ideal sheaf locally generated by images of elements of $\OO_X (U)$ in $\OO_{\bl_{\mathscr{I}}(X)}(U')$, where $U'$ is the preimage of $U$, each divided by the inverse image ideal sheaf of $\mathscr{I}$ as many times as they are divisible by it.
+
+This clearly corresponds to the closure (in the algebro-geometric sense) of the closed subscheme defined by $\mathscr{I}^{tot}$ minus the exceptional divisor in $\bl_{\mathscr{I}} (X)$, and is therefore at least quasicoherent. Over locally Noetherian schemes, however, it is also necessarily finitely generated, and as all schemes we actually work with are locally Noetherian, we see that this is an ideal sheaf.
+
+\item The \emph{weak transform} $\mathscr{J}^{w}$ is the inverse image ideal sheaf of $\mathscr{J}$ under $\bl_{\mathscr{I}}(X) \to X$ divided as many times by the ideal sheaf of the exceptional divisor as many times as possible.
+
+\item The \emph{controlled transform} $\mathscr{J}^{c}$ is like the weak transform except we have the \emph{control} (a positive integer) which limits the number of times we divide by the inverse image ideal sheaf of $\mathscr{I}$.
+\end{itemize}
+
+We also have the corresponding transforms for closed subschemes $Y$ of $X$ defined in the obvious way.
+
+\subsection{Isomorphism results}
+
+From our construction of blow-up it is trivial to see that it commutes with passing to an open subscheme, and this also works in the limit, i.e., when restricting to the localization at a point. In this section we are going to prove many similar results. First we show that blowing up commutes with passing to a closed subscheme.
+
+\begin{prop}\label{BlowUpCommutesWithClosedEmbeddings}
+Let $X$ be a scheme, $\mathscr{I}$ a sheaf of ideals, and let $Y \stackrel{i}{\hookrightarrow} X$ be a closed embedding corresponding to an ideal sheaf $\mathscr{J}$. Now there is an unique morphism $\bl_{\mathscr{I}|_Y}(Y) \to \bl_{\mathscr{I}}(X)$ making the square
+\begin{center}
+\begin{tikzpicture}[scale=1]
+\node (Y) at (0,0) {$Y$};
+\node (X) at (3,0) {$X$};
+\node (BlY) at (0,2) {$\bl_{\mathscr{I}|_Y}(Y)$};
+\node (BlX) at (3,2) {$\bl_{\mathscr{I}}(X)$};
+\path[]
+(Y) edge[right hook->] (X)
+(BlX) edge[->] (X)
+(BlY) edge[->] (BlX)
+(BlY) edge[->] (Y)
+;
+\end{tikzpicture}
+\end{center}
+commute. Moreover, this map is a closed embedding.
+\end{prop}
+\begin{proof}
+It is enough to show this affine-locally, as by uniqueness the local maps must glue to give a global one. So assume that $X = \spec (A)$, and that $Y = \spec (A/J)$. Now the blow-ups correspond to the Rees-algebras $A[It]$ and $(A/J)[\bar{I}t]$, where $\bar I$ is the image of $I$ in $A/J$. There is the natural surjection of graded algebras $A[It] \to (A/J)[\bar{I}t]$ which defines a closed immersion $\bl_{\bar{I}} (Y) \to \bl_I (X)$, so we are left with the task of showing its uniqueness.
+
+The uniqueness is easy to see locally on $\proj (A[It])$. The requirement of commutativity ensures us that for any element $a$ in $A$ or any of its localization is uniquely determined. Let $a_1,...,a_r$ generate $I$, $a \in I$ and let's look at $\OO_{\proj (A[It])} (D(at)) = (A[It]_{at})_0$. Its elements are of form
+\begin{equation*}
+{F(a_1t,...,a_rt) \over a^dt^d} = {F(a_1,...,a_r) \over a^d},
+\end{equation*}
+where $F$ is a homogeneous polynomial of degree $d$. Hence all the elements in $(A[It]_{at})_0$ lie in a localization of $A$, and their images are therefore uniquely determined. Therefore there is an unique morphism $\bl_{\bar{I}} (Y) \to \bl_I (X)$ over the map $Y \to X$, so we are done.
+\end{proof}
+
+Similar result holds for the other direction.
+
+\begin{prop}
+Let $X$ be a scheme, and let $Y \stackrel{i}{\hookrightarrow} X$ be a closed embedding. Let $\mathscr{J}$ be an ideal sheaf on $Y$. Now there is an unique morphism $\bl_{\mathscr{J}}(Y) \to \bl_{i_*\mathscr{J}}(X)$ making the square
+\begin{center}
+\begin{tikzpicture}[scale=1]
+\node (Y) at (0,0) {$Y$};
+\node (X) at (3,0) {$X$};
+\node (BlY) at (0,2) {$\bl_{\mathscr{J}}(Y)$};
+\node (BlX) at (3,2) {$\bl_{i_*\mathscr{J}}(X)$};
+\path[]
+(Y) edge[right hook->] (X)
+(BlX) edge[->] (X)
+(BlY) edge[->] (BlX)
+(BlY) edge[->] (Y)
+;
+\end{tikzpicture}
+\end{center}
+commute. Moreover, this map is a closed embedding.
+\end{prop}
+\begin{proof}
+Now $(i_*\mathscr{J})|_Y = \mathscr{J}$, so this immediately follows from the last proposition.
+\end{proof}
+
+Another result in the same spirit concerns completion.
+
+\begin{prop}
+Let $A$ be a local ring and let $I$ be a proper ideal of $A$. Now there is a natural isomorphism
+\begin{equation*}
+\widehat{A} [\widehat{I}t] \cong \widehat{A[It]}
+\end{equation*}
+where the completion is taken with respect to $m_A$ on the left hand side, and with respect to $A[It] m_A$ on the right hand side.
+\end{prop}
+\begin{proof}
+
+\end{proof}
 
 \section{Hironaka's Proof}\label{HirRes}
 
