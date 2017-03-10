@@ -7,10 +7,12 @@
 \usepackage{amsfonts}         
 \usepackage{amsmath}
 \usepackage{amssymb}
+\usepackage{mathrsfs}
 \usepackage{hyperref}
 \usepackage[all]{hypcap}
 \usepackage{tikz}
 \usetikzlibrary{matrix, arrows, decorations.pathmorphing}
+\DeclareMathAlphabet{\mathpzc}{OT1}{pzc}{m}{it}
 
 \newcommand{\R}{\mathbb{R}}
 \newcommand{\C}{\mathbb{C}}
@@ -33,6 +35,10 @@
 \newcommand{\plim}{\varprojlim}
 \newcommand{\dlim}{\varinjlim}
 \newcommand{\bl}{\mathrm{Bl}}
+\newcommand{\proj}{\mathrm{Proj}}
+\newcommand{\rproj}{\mathpzc{Proj}}
+\newcommand{\supp}{\mathrm{supp}}
+\newcommand{\cosupp}{\mathrm{cosupp}}
 
 
 \newcommand{\sectionbreak}{\clearpage}
@@ -754,6 +760,167 @@ Moreover, we can see from the local equations that the strict transform is nonsi
 \end{ex}
 
 \subsection{Blowing up, the general construction}
+
+Let $X$ be a scheme and $\mathscr{I}$ a sheaf of ideals (we require them to be quasicoherent and finite type) on $X$. The \emph{blow-up of $X$ along $\mathscr{I}$}, $\bl_{\mathscr{I}} (X)$, is defined as 
+\begin{equation*}
+\rproj ( \OO_X \oplus \mathscr{I} \oplus \mathscr{I}^2 \oplus ...),
+\end{equation*}
+where $\OO_X \oplus \mathscr{I} \oplus \mathscr{I}^2 \oplus ...$ is to be interpreted as a sheaf of graded algebras on $X$. From the basic properties of the global proj, we know that $\bl_\mathscr{I} (X)$ comes together with a canonical projection map $\bl_\mathscr{I}(X) \to X$. If $Y$ is a closed subscheme of $X$ corresponding to a sheaf of ideals $\mathscr{I}$ on $X$, then we define the \emph{blow-up of $X$ along $Y$}, $\bl_Y (X)$, to be $\bl_\mathscr{I} (X)$.
+
+If $Z \subset X$ is a closed subscheme, then we define the \emph{strict} and the \emph{total transform} of $Z$ under the blow-up $\bl_\mathscr{I}(X) \to X$ or $\bl_Y(X) \to X$ similarly as we did before. 
+
+\begin{ex}
+Our new notion coincides with the only one. Let's blow up the origin in an affine $n$-space $\Aff_k^n$. The coordinate ring for $\Aff^n$ is just $A = k[x_1,...,x_n]$, and the origin corresponds to the ideal $I = (x_1,...,x_n)$. As we are working over an affine scheme, we only need to show that $\proj (A \oplus I \oplus I^2 \oplus ...)$ naturally corresponds to our earlier notion of blow-up.
+
+Perhaps the easiest way to think about $A \oplus I \oplus I^2 \oplus ...$ is to think it as the Rees-algebra $A[It] \subset A[t]$. This is a quotient of the graded $A$-algebra $A[y_1, ... , y_n]$, where we assume that $y_1,...,y_n$ have no algebraic relations amongst themselves, whose proj is just $\Proj_{\Aff^n}^{n-1}$, which in turn is naturally isomorphic to $\Aff^n \times_k \Proj_k^{n-1}$. Hence it is a closed subscheme of $\Aff^n \times_k \Proj_k^{n-1}$, as was our original definition.
+
+What are the relations we must introduce between $y_i$ in order to get the Rees-algebra $A[It]$? At least we must have $x_i y_j - x_j y_i = 0$, which are exactly the relations that cut the blow-up of our original definition. But are these relations enough this time? As it turns out, they are, which we are going to prove next.
+
+Every polynomial $f \in A[y_1,...,y_1]$ can be broken into a sum
+\begin{equation*}
+\sum_i c_i M_i(x_1,...,x_n)N_i(y_1,...,y_n),
+\end{equation*}
+where $c_i \in k$, and $M_i, N_i$ are monomials. Image of each such term in $A[It]$ is of form
+\begin{equation*}
+c M(x_1,...,x_n)N(x_1,...,x_n)t^{\deg (N)},
+\end{equation*}
+which is a monomial in $A[It] \subset k[x_1,...,x_n,t]$. For each such monomial in $A[It]$ we may collect all the summands, whose image corresponds to the same monomial up to multiplication by a scalar in $k$. All such terms are of form $c' M'(x_1,...,x_n)N'(x_1,...,x_n)$ such that
+\begin{equation*}
+M'(x_1,...,x_n)N'(x_1,...,x_n)t^{\deg (N')} = M(x_1,...,x_n)N(x_1,...,x_n)t^{\deg (N)},
+\end{equation*}
+so if we form the sum of all these, we see that we obtain a polynomial $F$ that is homogeneous as an element of $A[y_1,...,y_n]$ and has as coefficients monomials of $A = k[x_1,...,x_n]$. Moreover, it is also homogeneous as a polynomial in $k[x_1,...,x_n,y_1,...,y_n]$.
+
+Assume now that $f$ is a nonzero polynomial in the kernel of $A[y_1,...,y_n] \to A[It]$. Take some $F$ formed by the above-mentioned procedure. We note that $F$ must lie in the kernel as well, as different monomials in $A[It]$ are linearly independent, and the sum of all coefficients $c' \in k$ preceding the terms of the sum must be 0. We are done if we can show that $F$ is zero modulo the relations $x_i y_j - x_j y_i$. But this is almost trivial. Using the relations $x_i y_j - x_j y_i$ we may transform all the terms in $F$ into some scalar $c'$ times $M(x_1,...,x_n)N(x_1,...,x_n)$. As the sum of the scalars must be 0, the sum thus obtained will be 0, and we are done.
+\end{ex}
+
+If we blow up $X$ along an ideal sheaf $\mathscr{I}$ (along a subscheme $Y$) then nothing changes outside the cosupport of $\mathscr{I}$ (outside $Y$).
+
+\begin{prop}
+Let us have a sheaf of ideals $\mathscr{I}$ of a scheme $X$, and let $U = X \backslash \cosupp (\mathscr{I})$. Now $U$ is isomorphic to its preimage in the blow-up map. 
+\end{prop}
+\begin{proof}
+The cosupport of $\mathscr{I}$ are exactly the points around which we have a neighbourhood $V$ such that $\mathscr{I} |_V  = \OO_X |_V$. Hence it is easy to see that $\mathscr{I}|_U = \OO_U$. Hence it is enough to prove that the blow-up of a scheme $X$ along $\OO_X$ is $X$. But this is easy to do locally. If $A$ is a ring, then the Rees-algebra $A[At]$ is just $A[t]$, and hence $\proj (A[t]) = A$ naturally along the projection map. As these local projection maps glue to give the global projection map, we are done.
+\end{proof}
+
+For any morphism $f: X \to Y$ of schemes and every ideal sheaf $\mathscr{I} \subset \OO_Y$ we have the \emph{inverse image ideal sheaf} $f^{-1} \mathscr{I} \cdot \OO_X$, which is the subsheaf of $\OO_Y$ locally generated by the images of elements of $\OO_Y (U)$ in $\OO_X (f^{-1} U)$. It is not \emph{a priori} clear that this satisfies our definition of an ideal sheaf, we still need to make sure that it is finitely generated and quasicoherent.
+
+\begin{prop}
+The sheaf $f^{-1} \mathscr{I} \cdot \OO_X$ is quasicoherent and finitely generated.
+\end{prop}
+\begin{proof}
+Let $U \subset Y$ and $V \subset f^{-1}U$ be affine open subschemes of $Y$ and $X$ respectively. Now the restriction of $f^{-1} \mathscr{I} \cdot \OO_X$ is clearly generated by the image of $\mathscr{I}|_U$ in the map of rings $\OO_Y (U) \to \OO_X (V)$. Hence, locally, $f^{-1} \mathscr{I} \cdot \OO_X$ is quasicoherent and finitely generated, and we are done.
+\end{proof}
+
+An interesting property of the blow-up $\bl_\mathscr{I} (X) \to X$ along $\mathscr{I}$ is the fact that the inverse image sheaf of $\mathscr{I}$ is an invertible sheaf, i.e., locally it is generated by a single nonzerodivisor.
+
+\begin{prop}
+The inverse image sheaf of $\mathscr{I}$ under the blow-up map $\bl_\mathscr{I} (X) \to X$ is invertible.
+\end{prop}
+\begin{proof}
+By checking over all affine open $U \subset X$ we see that the ideal in question is the one given the subsheaf 
+\begin{equation*}
+\mathscr{I} \oplus \mathscr{I}^2 \oplus \mathscr{I}^3 ... \subset \OO_X \oplus \mathscr{I} \oplus \mathscr{I}^2 ... 
+\end{equation*}
+But the sheaf on $\bl_\mathscr{I} (X)$ given by this graded sheaf is exactly the first twisting sheaf $\OO_{\bl_\mathscr{I} (X)}(1)$, which is known to be invertible. This proves the claim.
+\end{proof}
+
+Moreover, blowing up along an invertible ideal sheaf doesn't change anything, so after we blow up along $\mathscr{I}$ then blowing up along the inverse image ideal sheaf does nothing.
+
+\begin{prop}
+Let $\mathscr{I}$ be an invertible sheaf of ideals on a scheme $X$. Now the blow-up morphism $\bl_{\mathscr{I}} (X) \to X$ is an isomorphism.
+\end{prop}
+\begin{proof}
+Again, we only need to check this locally. For any open affine $U \subset X$ small enough that $\mathscr{I}|U = I$ is principal and generated by a nonzerodivisor $a \in \OO_U = A$, we see that the Rees-algebra $A[It] = A[at]$ is isomorphic to $A[t]$, reducing us to the case where $I=A$ already solved earlier.   
+\end{proof}
+
+The preimage of the cosupport of $\mathscr{I}$ in the blow-up map $\bl_{\mathscr{I}} (X) \to X$ is called the \emph{exceptional divisor} of $\bl_{\mathscr{I}} (X)$. As it is the subscheme cut out by the inverse image ideal sheaf of $\mathscr{I}$, it is truly a divisor, so the name is justified. Moreover, as the sheaf of ideals is locally generated by a single nonzerodivisor, dividing by it does make sense. 
+
+\subsection{Transformations of sheaves of ideals}
+
+This section, although rather short, will be very important for us later, as it contains many important definitions. Let us have a scheme $X$ and a blow-up map $\bl_{\mathscr{I}}(X) \to X$ along $\mathscr{I}$ and let $\mathscr{J}$ be an ideal sheaf. There are four ways to transform the ideal $\mathscr{J}$ under blow-up:
+
+\begin{itemize}
+\item The \emph{total transform} $\mathscr{J}^{tot}$ of $\mathscr{J}$ is just the inverse image ideal sheaf under the map $\bl_{\mathscr{I}}(X) \to X$.
+
+\item The \emph{strict transform} $\mathscr{J}^{st}$ of $\mathscr{J}$ is the ideal sheaf locally generated by images of elements of $\OO_X (U)$ in $\OO_{\bl_{\mathscr{I}}(X)}(U')$, where $U'$ is the preimage of $U$, each divided by the inverse image ideal sheaf of $\mathscr{I}$ as many times as they are divisible by it.
+
+This clearly corresponds to the closure (in the algebro-geometric sense) of the closed subscheme defined by $\mathscr{I}^{tot}$ minus the exceptional divisor in $\bl_{\mathscr{I}} (X)$, and is therefore at least quasicoherent. Over locally Noetherian schemes, however, it is also necessarily finitely generated, and as all schemes we actually work with are locally Noetherian, we see that this is an ideal sheaf.
+
+\item The \emph{weak transform} $\mathscr{J}^{w}$ is the inverse image ideal sheaf of $\mathscr{J}$ under $\bl_{\mathscr{I}}(X) \to X$ divided as many times by the ideal sheaf of the exceptional divisor as many times as possible.
+
+\item The \emph{controlled transform} $\mathscr{J}^{c}$ is like the weak transform except we have the \emph{control} (a positive integer) which limits the number of times we divide by the inverse image ideal sheaf of $\mathscr{I}$.
+\end{itemize}
+
+We also have the corresponding transforms for closed subschemes $Y$ of $X$ defined in the obvious way.
+
+\subsection{Isomorphism results}
+
+From our construction of blow-up it is trivial to see that it commutes with passing to an open subscheme, and this also works in the limit, i.e., when restricting to the localization at a point. In this section we are going to prove many similar results. First we show that blowing up commutes with passing to a closed subscheme.
+
+\begin{prop}\label{BlowUpCommutesWithClosedEmbeddings}
+Let $X$ be a scheme, $\mathscr{I}$ a sheaf of ideals, and let $Y \stackrel{i}{\hookrightarrow} X$ be a closed embedding corresponding to an ideal sheaf $\mathscr{J}$. Now there is an unique morphism $\bl_{\mathscr{I}|_Y}(Y) \to \bl_{\mathscr{I}}(X)$ making the square
+\begin{center}
+\begin{tikzpicture}[scale=1]
+\node (Y) at (0,0) {$Y$};
+\node (X) at (3,0) {$X$};
+\node (BlY) at (0,2) {$\bl_{\mathscr{I}|_Y}(Y)$};
+\node (BlX) at (3,2) {$\bl_{\mathscr{I}}(X)$};
+\path[]
+(Y) edge[right hook->] (X)
+(BlX) edge[->] (X)
+(BlY) edge[->] (BlX)
+(BlY) edge[->] (Y)
+;
+\end{tikzpicture}
+\end{center}
+commute. Moreover, this map is a closed embedding.
+\end{prop}
+\begin{proof}
+It is enough to show this affine-locally, as by uniqueness the local maps must glue to give a global one. So assume that $X = \spec (A)$, and that $Y = \spec (A/J)$. Now the blow-ups correspond to the Rees-algebras $A[It]$ and $(A/J)[\bar{I}t]$, where $\bar I$ is the image of $I$ in $A/J$. There is the natural surjection of graded algebras $A[It] \to (A/J)[\bar{I}t]$ which defines a closed immersion $\bl_{\bar{I}} (Y) \to \bl_I (X)$, so we are left with the task of showing its uniqueness.
+
+The uniqueness is easy to see locally on $\proj (A[It])$. The requirement of commutativity ensures us that for any element $a$ in $A$ or any of its localization is uniquely determined. Let $a_1,...,a_r$ generate $I$, $a \in I$ and let's look at $\OO_{\proj (A[It])} (D(at)) = (A[It]_{at})_0$. Its elements are of form
+\begin{equation*}
+{F(a_1t,...,a_rt) \over a^dt^d} = {F(a_1,...,a_r) \over a^d},
+\end{equation*}
+where $F$ is a homogeneous polynomial of degree $d$. Hence all the elements in $(A[It]_{at})_0$ lie in a localization of $A$, and their images are therefore uniquely determined. Therefore there is an unique morphism $\bl_{\bar{I}} (Y) \to \bl_I (X)$ over the map $Y \to X$, so we are done.
+\end{proof}
+
+Similar result holds for the other direction.
+
+\begin{prop}
+Let $X$ be a scheme, and let $Y \stackrel{i}{\hookrightarrow} X$ be a closed embedding. Let $\mathscr{J}$ be an ideal sheaf on $Y$. Now there is an unique morphism $\bl_{\mathscr{J}}(Y) \to \bl_{i_*\mathscr{J}}(X)$ making the square
+\begin{center}
+\begin{tikzpicture}[scale=1]
+\node (Y) at (0,0) {$Y$};
+\node (X) at (3,0) {$X$};
+\node (BlY) at (0,2) {$\bl_{\mathscr{J}}(Y)$};
+\node (BlX) at (3,2) {$\bl_{i_*\mathscr{J}}(X)$};
+\path[]
+(Y) edge[right hook->] (X)
+(BlX) edge[->] (X)
+(BlY) edge[->] (BlX)
+(BlY) edge[->] (Y)
+;
+\end{tikzpicture}
+\end{center}
+commute. Moreover, this map is a closed embedding.
+\end{prop}
+\begin{proof}
+Now $(i_*\mathscr{J})|_Y = \mathscr{J}$, so this immediately follows from the last proposition.
+\end{proof}
+
+Another result in the same spirit concerns completion.
+
+\begin{prop}
+Let $A$ be a local ring and let $I$ be a proper ideal of $A$. Now there is a natural isomorphism
+\begin{equation*}
+\widehat{A} [\widehat{I}t] \cong \widehat{A[It]}
+\end{equation*}
+where the completion is taken with respect to $m_A$ on the left hand side, and with respect to $A[It] m_A$ on the right hand side.
+\end{prop}
+\begin{proof}
+
+\end{proof}
 
 \section{Hironaka's Proof}\label{HirRes}
 
