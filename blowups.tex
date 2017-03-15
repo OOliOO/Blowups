@@ -478,10 +478,10 @@ Let $G$ be a topological group, whose topology is given by a filtration, and $H 
 \end{equation*}
 \end{cor}
 \begin{proof}
-This is a trivial consequence of the previous discussion. The fact that $G$ is Hausdorff is used for identifying $\plim (G/G_i)$ with the completion, and the fact that $H$ is closed is necessary to make sure that $G/H$ is Hausdorff.
+This is a trivial consequence of the previous discussion.
 \end{proof}
 
-This looks a bit like the completion might be exact, at least in good cases. But it is quite dangerous to try to think about these properties in that way: the category of topological abelian groups is not abelian as there is too much freedom in the choice of topology, and therefore one has to be quite careful when talking about exact sequences. This can, however, be fixed by restricting into a suitable subcategory which is restrictive enough on topology.
+One shouldn't try to think that the completion of general topological groups is exact if we restrict to those groups, whose topology is given by a filtration. The category of topological abelian groups is not abelian as there is too much freedom in the choice of topology, and therefore one has to be careful when talking about properties related to exactness. Restricting to a subcategory that is restrictive enough on topology, we may fix these problems, as we shall see later.
 
 Quite often, a convenient way of specifying an element of $\widehat G$, where $G$ has the topology induced by a filtration, is to give an infinite sum
 \begin{equation*}
@@ -607,7 +607,7 @@ Let $A$ contain a field of characteristic 0. Now $\widehat A$ contains a coordin
 \begin{proof}
 Clearly $A$ contains a field of characteristic 0 if and only if it contains $\Q$. Denote by $K$ the residue field $A/m_A$. 
 
-Let $(\alpha_i)_{i \in I}$ be a transcendence basis for $K$ over $\Q$, i.e., a collection of elements of $K$ satisfying no nontrivial algebraic relations over $\Q$ such that $K$ is algebraic over $\Q((\alpha_i)_{i \in I})$. Now we can clearly choose elements $a_i \in A$ such that $a_i = \alpha_i$ modulo $m_A$, and thus we see that $\Q((\alpha_i)_{i \in I}) \cong \Q((a_i)_{i \in I}) \subset A$. Hence $\Q((a_i)_{i \in I})$ is also contained in $\widehat A$.
+Let $(\alpha_i)_{i \in I}$ be a transcendence basis for $K$ over $\Q$, i.e., a collection of elements of $K$ satisfying no nontrivial algebraic relations over $\Q$ such that $K$ is algebraic over $\Q((\alpha_i)_{i \in I})$. Now we can clearly choose elements $a_i \in A$ such that $a_i = \alpha_i$ modulo $m_A$. As $A$ is local, the elements $a_i$ are invertible, and therefore $\Q((\alpha_i)_{i \in I}) \cong \Q((a_i)_{i \in I})$ is contained in $A$, and hence $\Q((a_i)_{i \in I})$ is also contained in $\widehat A$.
 
 Now we may extend $\Q((a_i)_{i \in I})$ into $K$ by using Hensel's and (if needed) transfinite induction. This works because if we have an intermediate field extension $\Q((a_i)_{i \in I}) \subset M \subset K$, then also $M$ has characteristic $0$, and hence any element of $K$ is a simple root of a polynomial with coefficients in $M$, and hence can be lifted to $\widehat A$ by Hensel's lemma.
 \end{proof}
@@ -635,7 +635,11 @@ Using the above lemma, we can see that the map
 \begin{equation*}
 \gr_J(K[a_1,...,a_n]) \to \gr_{\widehat{m_A}}(\widehat{A})
 \end{equation*}
-is surjective, and therefore we may conclude, using dimensionality, that $K[a_1,...,a_n] / J^i \to \widehat{A} / \widehat{m_A}^i$ must be surjective for all $i$. Therefore the image of $K[a_1,...,a_n]$ is dense in $\widehat{A}$, and $\widehat{(K[a_1,...,a_n])} = \widehat A$. As $K[a_1,...,a_n]$ is a finitely generated $K$-algebra, its $J$-adic completion is of the wanted form, and we are done.
+is surjective, and therefore we may conclude using dimensionality that the map
+\begin{equation*}
+K[a_1,...,a_n] / J^i \to \widehat{A} / \widehat{m_A}^i
+\end{equation*}
+must be surjective for all $i$. Therefore the image of $K[a_1,...,a_n]$ is dense in $\widehat{A}$, and $\widehat{(K[a_1,...,a_n])} = \widehat A$. As $K[a_1,...,a_n]$ is a finitely generated $K$-algebra, its $J$-adic completion is of the wanted form, and we are done.
 \end{proof}
 
 One of the nicer theorems concerning completions tells us, among other things, that if we have a regular point $p$ on a variety $X$, then formally locally the variety looks like an affine space near the point $p$, i.e., $\widehat \OO_{X,p} \cong K[[x_1,...,x_n]]$. Before proving this, however, we need a lemma.
@@ -686,11 +690,11 @@ Outside the origin the preimage of a point of the nodal curve $C$ is a single po
 
 \subsection{Blowing up points in an affine space}
 
-Blowing up a point in an affine space $\Aff^n$ is essentially very similar to what happened at the beginning of this section, although it is a bit more technical. We are only going to describe how to blow up the origin, the technique trivially generalizes to other points as well. From now on, unless otherwise stated, we work over an algebraically closed field.
+Blowing up a point in an affine space $\Aff^n$ is essentially very similar to what happened at the beginning of this section, although it is a bit more technical. We are only going to describe how to blow up the origin as the technique trivially generalizes to other points as well. From now on, unless otherwise stated, we work over an algebraically closed field.
 
-The basic idea is to replace the origin with $\Proj^{n-1}$ whose points corresponds to all the ''tangent directions'' at 0. We begin by taking the product space $\Aff^n \times \Proj^{n-1}$, whose coordinates we are going to denote by $(x_1,...,x_n, [u_1:...:u_n])$. As we would like to have only the points of form $(x_1,...,x_n, [x_1:...:,x_n])$, we set the blown up space $\bl_0 (\Aff^n)$ (where 0 stands for the fact that we blow up the origin) to be the closed subvariety of $\Aff^n \times \Proj^{n-1}$ cut out by equations $x_i u_j - x_j u_i = 0$. The first projection map clearly induces a morphism $\bl_0 (\Aff^n) \to \Aff^n$ that is isomorphism outside the origin of $\Aff^n$. Over the origin we have the whole projective $(n-1)$-space, so we have managed to do exactly what we wanted.
+The basic idea is to replace the origin with $\Proj^{n-1}$ whose points corresponds to all the ''tangent directions'' at 0. We begin by taking the product space $\Aff^n \times \Proj^{n-1}$, whose coordinates we are going to denote by $(x_1,...,x_n, [u_1:...:u_n])$. We would like to have only the points of form $(x_1,...,x_n, [x_1:...:,x_n])$, we set the blown up space $\bl_0 (\Aff^n)$ (where 0 stands for the fact that we blow up the origin) to be the closed subvariety of $\Aff^n \times \Proj^{n-1}$ cut out by equations $x_i u_j - x_j u_i = 0$. The first projection map clearly induces a morphism $\bl_0 (\Aff^n) \to \Aff^n$ that is isomorphism outside the origin of $\Aff^n$. Over the origin we have the whole projective $(n-1)$-space, so we have managed to do exactly what we wanted.
 
-It is however more interesting to see what happens to \emph{subvarieties} $X$ of $\Aff^n$ under the blow-up. The preimage of $X$ in the map $\bl (\Aff^n) \to \Aff^n$ is called the \emph{total transform} of $X$, and it is denoted by $X^{tot}$. The Zariski closure of the preimage of $X \backslash \{ 0 \}$ in $\bl (\Aff^n)$ is called the \emph{strict transform} $X^{st}$ of $X$, and taking the strict transform is what is usually meant when we blow up a point on $X$. It is clear that the blow-up map $\bl (\Aff^n) \to \Aff^n$ restricts to give morphisms $X^{tot} \to X$ and $X^{st} \to X$.
+It is however more interesting to see what happens to \emph{subvarieties} $X$ of $\Aff^n$ under the blow-up. The preimage of $X$ in the map $\bl (\Aff^n) \to \Aff^n$ is called the \emph{total transform} of $X$, and it is denoted by $X^{tot}$. The Zariski closure of the preimage of $X \backslash \{ 0 \}$ in $\bl (\Aff^n)$ is called the \emph{strict transform} $X^{st}$ of $X$, and taking the strict transform is what is usually meant when we talk about blowing up $X$. It is clear that the blow-up map $\bl (\Aff^n) \to \Aff^n$ restricts to give morphisms $X^{tot} \to X$ and $X^{st} \to X$.
 
 \begin{ex}
 Lets get back to the example of the nodal curve $C$ cut out of $\Aff^2$ by the polynomial $y^2 - x^3 - x^2$. We denote the points of the product variety $\Aff^2 \times \Proj^2$ by $(x,y, [u:v])$, so the blown up plane $\bl (\Aff^2)$ is cut out by the polynomial $xv - yu$. Now the preimage of $C$ in $\bl (\Aff^2)$ is cut out by furthermore requiring the equation $y^2 - x^3 - x^2$ to be satisfied. It is easy to see that if $(x,y) \not =  (0,0)$, then $(x,y,[x:y])$ is the only point of $C^{tot}$ lying over it, and as every point of form $(0,0, [u:v])$ is in $C^{tot}$, we see that the preimage of the origin is the whole $\Proj^1$.
@@ -767,7 +771,7 @@ where $\OO_X \oplus \mathscr{I} \oplus \mathscr{I}^2 \oplus ...$ is to be interp
 If $Z \subset X$ is a closed subscheme, then we define the \emph{strict} and the \emph{total transform} of $Z$ under the blow-up $\bl_\mathscr{I}(X) \to X$ or $\bl_Y(X) \to X$ similarly as we did before. 
 
 \begin{ex}
-Our new notion coincides with the only one. Let's blow up the origin in an affine $n$-space $\Aff_k^n$. The coordinate ring for $\Aff^n$ is just $A = k[x_1,...,x_n]$, and the origin corresponds to the ideal $I = (x_1,...,x_n)$. As we are working over an affine scheme, we only need to show that $\proj (A \oplus I \oplus I^2 \oplus ...)$ naturally corresponds to our earlier notion of blow-up.
+Our new notion coincides with the earlier one. Let's blow up the origin in an affine $n$-space $\Aff_k^n$. The coordinate ring for $\Aff^n$ is just $A = k[x_1,...,x_n]$, and the origin corresponds to the ideal $I = (x_1,...,x_n)$. As we are working over an affine scheme, we only need to show that $\proj (A \oplus I \oplus I^2 \oplus ...)$ naturally corresponds to our earlier notion of blow-up.
 
 Perhaps the easiest way to think about $A \oplus I \oplus I^2 \oplus ...$ is to think it as the Rees-algebra $A[It] \subset A[t]$. This is a quotient of the graded $A$-algebra $A[y_1, ... , y_n]$, where we assume that $y_1,...,y_n$ have no algebraic relations amongst themselves, whose proj is just $\Proj_{\Aff^n}^{n-1}$, which in turn is naturally isomorphic to $\Aff^n \times_k \Proj_k^{n-1}$. Hence it is a closed subscheme of $\Aff^n \times_k \Proj_k^{n-1}$, as was our original definition.
 
@@ -788,6 +792,8 @@ M'(x_1,...,x_n)N'(x_1,...,x_n)t^{\deg (N')} = M(x_1,...,x_n)N(x_1,...,x_n)t^{\de
 so if we form the sum of all these, we see that we obtain a polynomial $F$ that is homogeneous as an element of $A[y_1,...,y_n]$ and has as coefficients monomials of $A = k[x_1,...,x_n]$. Moreover, it is also homogeneous as a polynomial in $k[x_1,...,x_n,y_1,...,y_n]$.
 
 Assume now that $f$ is a nonzero polynomial in the kernel of $A[y_1,...,y_n] \to A[It]$. Take some $F$ formed by the above-mentioned procedure. We note that $F$ must lie in the kernel as well, as different monomials in $A[It]$ are linearly independent, and the sum of all coefficients $c' \in k$ preceding the terms of the sum must be 0. We are done if we can show that $F$ is zero modulo the relations $x_i y_j - x_j y_i$. But this is almost trivial. Using the relations $x_i y_j - x_j y_i$ we may transform all the terms in $F$ into some scalar $c'$ times $M(x_1,...,x_n)N(x_1,...,x_n)$. As the sum of the scalars must be 0, the sum thus obtained will be 0, and we are done.
+
+A similar result holds in more general settings, which we are going to prove when we start talking about \emph{smooth blow-ups}. The proof of the more general result is a bit more technical as it uses the theory of Gröbner bases. 
 \end{ex}
 
 If we blow up $X$ along an ideal sheaf $\mathscr{I}$ (along a subscheme $Y$) then nothing changes outside the cosupport of $\mathscr{I}$ (outside $Y$).
@@ -799,7 +805,7 @@ Let us have a sheaf of ideals $\mathscr{I}$ of a scheme $X$, and let $U = X \bac
 The cosupport of $\mathscr{I}$ are exactly the points around which we have a neighbourhood $V$ such that $\mathscr{I} |_V  = \OO_X |_V$. Hence it is easy to see that $\mathscr{I}|_U = \OO_U$. Hence it is enough to prove that the blow-up of a scheme $X$ along $\OO_X$ is $X$. But this is easy to do locally. If $A$ is a ring, then the Rees-algebra $A[At]$ is just $A[t]$, and hence $\proj (A[t]) = A$ naturally along the projection map. As these local projection maps glue to give the global projection map, we are done.
 \end{proof}
 
-For any morphism $f: X \to Y$ of schemes and every ideal sheaf $\mathscr{I} \subset \OO_Y$ we have the \emph{inverse image ideal sheaf} $f^{-1} \mathscr{I} \cdot \OO_X$, which is the subsheaf of $\OO_Y$ locally generated by the images of elements of $\OO_Y (U)$ in $\OO_X (f^{-1} U)$. It is not \emph{a priori} clear that this satisfies our definition of an ideal sheaf, we still need to make sure that it is finitely generated and quasicoherent.
+For any morphism $f: X \to Y$ of schemes and every ideal sheaf $\mathscr{I} \subset \OO_Y$ we have the \emph{inverse image ideal sheaf} $f^{-1} \mathscr{I} \cdot \OO_X$, which is the subsheaf of $\OO_Y$ locally generated by the images of elements of $\OO_Y (U)$ in $\OO_X (f^{-1} U)$. It is not \emph{a priori} clear that this satisfies our definition of an ideal sheaf, as we still need to make sure that it is finitely generated and quasicoherent.
 
 \begin{prop}
 The sheaf $f^{-1} \mathscr{I} \cdot \OO_X$ is quasicoherent and finitely generated.
@@ -834,7 +840,7 @@ The preimage of the cosupport of $\mathscr{I}$ in the blow-up map $\bl_{\mathscr
 
 \subsection{Transformations of sheaves of ideals}
 
-This section, although rather short, will be very important for us later, as it contains many important definitions. Let us have a scheme $X$ and a blow-up map $\bl_{\mathscr{I}}(X) \to X$ along $\mathscr{I}$ and let $\mathscr{J}$ be an ideal sheaf. There are four ways to transform the ideal $\mathscr{J}$ under blow-up:
+This section, although rather short, will be very important for us later, as it contains four fundamental definitions. Let us have a scheme $X$ and a blow-up map $\bl_{\mathscr{I}}(X) \to X$ along $\mathscr{I}$ and let $\mathscr{J}$ be an ideal sheaf. There are four ways to transform the ideal $\mathscr{J}$ under blow-up:
 
 \begin{itemize}
 \item The \emph{total transform} $\mathscr{J}^{tot}$ of $\mathscr{J}$ is just the inverse image ideal sheaf under the map $\bl_{\mathscr{I}}(X) \to X$.
@@ -852,7 +858,7 @@ We also have the corresponding transforms for closed subschemes $Y$ of $X$ defin
 
 \subsection{Isomorphism results}
 
-From our construction of blow-up it is trivial to see that it commutes with passing to an open subscheme, and this also works in the limit, i.e., when restricting to the localization at a point. In this section we are going to prove many similar results. First we show that blowing up commutes with passing to a closed subscheme.
+From our construction of blow-up it is trivial to see that it commutes with passing to an open subscheme, and this also works in the limit, i.e., when restricting to the localization at a point. Next we show that blowing up commutes with passing to a closed subscheme.
 
 \begin{prop}\label{BlowUpCommutesWithClosedEmbeddings}
 Let $X$ be a scheme, $\mathscr{I}$ a sheaf of ideals, and let $Y \stackrel{i}{\hookrightarrow} X$ be a closed embedding corresponding to an ideal sheaf $\mathscr{J}$. Now there is an unique morphism $\bl_{\mathscr{I}|_Y}(Y) \to \bl_{\mathscr{I}}(X)$ making the square
@@ -934,7 +940,7 @@ As we have found the Gröbner basis, we can conclude that the kernel of our map 
 \end{proof}
 
 \begin{rem}
-Assume that $A$ and $A/I$ are regular rings, and that $I$ is generated by a regular sequence $a_1,...,a_r$. Now we at least have a map of graded rings $A[x_1,...,x_r]/(a_i x_j - a_j x_i)_{i,j} \to A[It]$. As the assumptions of the above propositions hold for $a_i$ at least locally, we see that the map is an isomorphism locally over $A$, and therefore it is an isomorphism. This means that computing smooth blow ups is very easy to do locally, and that checking the suitability of some open set for easy computations is rather easy.
+Assume that $A$ and $A/I$ are regular rings, and that $I$ is generated by a regular sequence $a_1,...,a_r$. Now we at least have a map of graded rings $A[x_1,...,x_r]/(a_i x_j - a_j x_i)_{i,j} \to A[It]$. As the assumptions of the above propositions hold for $a_i$ at least locally near the points of $V(I)$, and as it is easy to see that the map is isomorphism over $D(I)$, we see that the map is locally an isomorphism, and therefore it is an isomorphism. This means that computing smooth blow ups is very easy to do locally, and that checking the suitability of some open set for easy computations is rather easy.
 \end{rem}
 
 \begin{rem}
@@ -957,6 +963,29 @@ i.e., it is the projective scheme associated to the associated graded ring $\gr_
 \end{proof}
 
 \section{Hironaka's Proof}\label{HirRes}
+
+The purpose of this section is to give an outline for the proof for resolution of singularities. The proof is based on modernized versions of the original proof given by Hironaka in 1964 as exposed in \cite{Cut}, \cite{Hau} and \cite{Kol}. Throughout the section, unless otherwise mentioned, by a \emph{variety} we shall mean a $k$-variety over a field $k$ of characteristic zero.
+
+\subsection{Order}
+
+Let $X$ be a locally Noetherian scheme, and $\mathscr{I}$ an ideal sheaf on $X$. The \emph{order} of $\mathscr{I}$ at point $p$ is defined as the maximal $n \in \N$ such that $m_{X,p}^n$ contains $\mathscr{I}_p$. By the Krull intersection theorem such an $n$ always exists. Although the definition is quite simple, the order of an ideal is a very important invariant for resolution, and this section is dedicated to understanding its basic properties, and how it interacts with blowing up.
+
+Assume that we have a smooth variety $X$. We know that $\widehat \OO_{X,p}$ is isomorphic to $K[[x_1,...,x_d]]$, where $K$ is the residue field at $p$. This leads to a nice characterization of the order of an ideal sheaf at $p$.
+
+\begin{prop}
+Let $X$ be a smooth variety and let $\mathscr{I}$ be an ideal sheaf on $X$. Now the order of $\mathscr{I}$ at a point $p \in X$ coincides with the lowest order of any term of any series in
+\begin{equation*}
+\widehat{\mathscr{I}}_p \subset \widehat \OO_{X,p} = K[[x_1,...,x_d]].
+\end{equation*}
+\end{prop}
+\begin{proof}
+This is clear.
+\end{proof}
+
+
+\subsection{Monomalization of ideals -- an outline of the proof}
+
+\subsection{Resolution of Singularities}
 
 \section{de Jong's Proof}\label{deJongRes}
 
