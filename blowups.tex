@@ -11,6 +11,9 @@
 \usepackage{hyperref}
 \usepackage[all]{hypcap}
 \usepackage{tikz}
+\usepackage{float}
+\usepackage{placeins}
+\usepackage{afterpage}
 \usetikzlibrary{matrix, arrows, decorations.pathmorphing}
 \DeclareMathAlphabet{\mathpzc}{OT1}{pzc}{m}{it}
 
@@ -85,14 +88,14 @@ For many of the most important theorems in mathematics giving even an approximat
 
 Let us start with an example. The solution set for the equation $y^2 - x^3$ is visualized in Figure \fref{cusp1}. At every point of the curve, except at the origin, the curve seems to be smooth, i.e., if we zoom close enough, it starts looking like a straight line. These kind of points are called \emph{nonsingular} or \emph{regular points}. More generally in higher dimensional varieties (say the dimension is $n$) we would consider a point to be nonsingular if locally around it the variety looks like the ''normal'' $n$-dimensional space (you can think of $\R^n$ if we are dealing with real solutions, $\C^n$ if with complex solutions).  
 
-But something weird happens at the origin: the direction of the curve ''changes'' suddenly, and no matter how close we try to zoom, the curve will never start looking like a straight line. Points that fail to be nonsingular are called \emph{singularities} or \emph{singular points}. The type of curve singularity we have in Figure \fref{cusp1} is called a \emph{cusp}.
-
-\begin{figure}\label{cusp1}
+\begin{figure}[!htbp]\label{cusp1}
 \begin{center}
 \includegraphics{pics/cusp.png}
 \caption{A cusp.}
 \end{center}
 \end{figure}
+
+Something weird happens at the origin: the direction of the curve ''changes'' suddenly, and no matter how close we try to zoom, the curve will never start looking like a straight line. Points that fail to be nonsingular are called \emph{singularities} or \emph{singular points}. The type of curve singularity we have in Figure \fref{cusp1} is called a \emph{cusp}.
 
 Now a question arises: would it be possible to parametrize our singular curve $C$ with another, nicer, curve: could we parametrize the points of $C$ with points of a nonsingular curve $C'$ (meaning that it has no singular points)? In the above case it is indeed possible. Take the curve $C'$ that is the zero set of the polynomial equation $y'^2 - x'$ plotted in Figure \fref{nsing1}. We would like to define a map $C' \to C$. Send a point $(x',y') \in C'$ to $(x',y'x')$. This point lies in $C$ as
 \begin{align*}
@@ -100,10 +103,17 @@ Now a question arises: would it be possible to parametrize our singular curve $C
 \end{align*}
 and the right hand side is zero by assumption. Hence we have what we desired: a parametrization of the curve $C$ by a nonsingular curve $C'$.
 
-\begin{figure}\label{nsing1}
+\begin{figure}[!htbp]\label{nsing1}
 \begin{center}
 \includegraphics{pics/parabola.png}
 \caption{The solution set for $y'^2 - x' = 0$.}
+\end{center}
+\end{figure}
+
+\begin{figure}[!htbp]\label{node1}
+\begin{center}
+\includegraphics{pics/node.png}
+\caption{This kind of singularity is called a \emph{node}.}
 \end{center}
 \end{figure}
 
@@ -111,43 +121,37 @@ Before going further, let us have another example. The equation $y^2 - x^3 - x^2
 
 Can we find a nonsingular parametrization for this curve? Yes we can. Take the curve $y'^2 - x' - 1$, which is visualized in Figure \fref{nsing2}. A parametrization is again given by $(x', y') \mapsto (x', x'y')$ which can be checked with similar reasoning as before.
 
-\begin{figure}\label{node1}
-\begin{center}
-\includegraphics{pics/node.png}
-\caption{This kind of singularity is called a \emph{node}.}
-\end{center}
-\end{figure}
 
-\begin{figure}\label{nsing2}
+\begin{figure}[!htbp]\label{nsing2}
 \begin{center}
 \includegraphics{pics/parabola2.png}
-\caption{I swear, a parabola is not going to \emph{always} work.}
+\caption{I swear, the resolved curve won't \emph{always} be a parabola.}
 \end{center}
 \end{figure}
 
-Finding a parametrization of a singular variety by a nonsingular one is called \emph{resolving} its singularities (this is not what one usually means by it, usually we would require the parametrizing curve to be isomorphic to the original one almost everywhere). The problem of resolution of singularities simply asks whether or not the singularities of any variety can be resolved. It is also of some interest if there is a systematic way of doing this.
+Finding a parametrization of a singular variety by a nonsingular one is called \emph{resolving} its singularities (this is not what one usually means by it, usually we would require the parametrizing curve to be isomorphic to the original one almost everywhere). The problem of resolution of singularities simply asks whether or not the singularities of any variety can be resolved. 
 
 \subsection{A condenced historical account of the problem}
 
-Although the problem is much older, we start with Oscar Zariski. Zariski was arguably the leading algebraic geometer of the first half of the twentieth century: if Grothendieck is to be regarded as the father of modern algebraic geometry, then Zariski is the grandfather. He did his undergraduate studies in Kiev, and later moved to do his doctorate in Rome under Guido Castelnuovo. During his graduate studies he was very much influenced by what is now known as the Italian school of classical algebraic geometry, which is nowdays notorious for their usage of ''geometric intuition'' leading to some false proofs and untrue theorems.
+Although the problem is much older, we start with the work of Oscar Zariski. He was arguably the leading algebraic geometer of the first half of the twentieth century: if Grothendieck is to be regarded as the father of modern algebraic geometry, then Zariski must surely be the grandfather. After doing his undergraduate studies in Kiev, the unstable political atmosphere drove him out of the country, and he left for Rome, where he pursued his doctorate under the leading algebraic geometers of his time. This is what is nowdays known as the Italian school of classical algebraic geometry. By using ''geometric intuition'' they pushed algebraic geometry forward to new and exciting directions, but unfortunately the lack of rigour caused them to publish some untrue theorems, and nowdays they serve (somewhat unjustly) as some kind of example of what can happen when you disregard rigour.
 
-But Zariski was more algebraically inclined than his Italian teachers. And even though he enjoyed the geometric way of thinking of the Italians, he also had some worries concerning their rigour. Because of these, Castelnuovo once stated: ''Zariski, you are here with us but are not one of us'' \cite{Par}. This was not meant in a bad way, the methods of the Italian school had reached a dead-end, and would no longer be able to accomplish significant progress in the field, and Castelnuovo knew this all too well. But it would still take years before Zariski would start systematically rebuilding the foundations of algebraic geometry.
+Zariski was originally interested in algebra, and was algebraically inclined than his Italian teachers. And even though he enjoyed the geometric way of thinking of the Italians, he also had some worries concerning the rigour of their arguments. Because of these reasons, Castelnuovo, his advisor, once stated: ''Zariski, you are here with us but are not one of us'' \cite{Par}. This was not meant in a bad way, the methods of the Italian school had reached a dead-end, and would no longer be able to accomplish significant progress in the field, and Castelnuovo knew this all too well. But it would still take years before Zariski would start systematically rebuilding the foundations of algebraic geometry.
 
-In 1932, now in the United States, Zariski began to work on his monograph \emph{Algebraic Surfaces}, a task that would take him three years. The purpose of the monograph was to give a complete account of the results concerning algebraic curves obtained by the Italian school with rigorous proofs. However, while writing the book, he became increasingly certain that the entire foundations of algebraic geometry should be completely rebuilt using commutative algebra. He later stated himself: ''working on that book took all my time because as I worked I became more and more disgusted with the kind of proofs that the Italian geometers were giving, and I started studying algebra seriously.'' \cite{Par} He started incorporating recent results from commutative algebra achieved mainly by Noether, Krull and Dedekind, and casting everything in algebraic geometry in terms of the theory of commutative rings and their ideals. 
+In 1932, now in the United States, Zariski began to work on his monograph \emph{Algebraic Surfaces}, a task that would take him three years. The purpose of the monograph was to give a complete account of the results concerning algebraic curves obtained by the Italian school with rigorous proofs. However, while writing the book, he became increasingly certain that the entire foundations of algebraic geometry should be completely rebuilt using commutative algebra. He later stated himself: ''working on that book took all my time because as I worked I became more and more disgusted with the kind of proofs that the Italian geometers were giving, and I started studying algebra seriously.'' \cite{Par} He started incorporating recent results from commutative algebra achieved by Noether, Krull and Dedekind, and casting everything in algebraic geometry in terms of the theory of commutative rings and their ideals. 
 
-After the completion of the monograph in 1935, Zariski went on to develop an abstract theory of algebraic geometry over an arbitrary (algebraically closed) ground field (instead of the coordinates of the points being complex numbers, they could be elements of some abstract field). It was during this time when he got interested in the resolution problem. The problem of resolution of singularities for higher dimensional varieties had long stood open, and many good mathematicians had given it a shot. Only some partial results had been achieved, and these were over complex numbers.
+After the completion of the monograph in 1935, Zariski went on to develop an abstract theory of algebraic geometry over an arbitrary (algebraically closed) ground field (instead of the coordinates of the points being complex numbers, they could be elements of some abstract field). It was during this time when he got interested in the resolution problem. The problem of resolution of singularities for higher dimensional varieties had long stood open, and many good mathematicians had given it a shot. Nonetheless, only some partial results had been achieved, and these were over complex numbers.
 
-Zariski gave a simple proof for the resolution problem for surfaces using his notion of \emph{normalization}, a term that should ring a bell to anyone who has studied algebraic geometry or commutative algebra. Resolution for surfaces is more complicated than for curves as the singularities of a surface need not to be confined in a finite set of points: the singular points can form curves as well. Normalizing a variety produces a variety whose singularities are of codimension two, which, in the case of surfaces, means that all singularities are point-singularities, i.e., the earlier complication is now gone! After normalization, resolving the singularities was fairly straightforward.
+Zariski gave a simple proof for the resolution problem for surfaces using his notion of \emph{normalization}, a term that should ring a bell to anyone who has studied algebraic geometry or commutative algebra. Resolution for surfaces is more complicated than for curves as the singularities of a surface need not to be confined in a finite set of points: the singular points can form curves as well. Normalizing a variety produces a variety whose singularities are of codimension two, which, in the case of surfaces, means that all singularities are point-singularities, i.e., the earlier complication is now gone! After normalization, resolving the remaining singularities is fairly straightforward.
 
-The resolution of singularities for surfaces had, however, essentially already been solved by the Italian algebraic geometers \cite{Par}. But Zariski didn't stop there. Later, he was able to show that the singularities of three-folds (three dimensional varieties) over a field of characteristic zero (three dimensional varieties) can be resolved. This was a problem that had completely eluded the approaches of the Italian school, and was also the moment that proved to rest of the world how powerful algebraic methods could be in algebraic geometry.
+The resolution of singularities for surfaces had, however, essentially already been solved by the Italian algebraic geometers \cite{Par}. But Zariski didn't stop there. Later, he was able to show that the singularities of three-folds over a field of characteristic zero (three dimensional varieties) can be resolved. This was a problem that had completely eluded the approaches of the Italian school, and was also the moment that proved to rest of the world how powerful the new algebraic methods Zariski had introduced could be.
 
-This is however where the contributions of Zariski (essentially) end. For further progress some time had to pass, and another rebuilding of the foundations of algebraic geometry had to happen. Alexander Grothendieck, motivated by the famous Weil conjectures linking together number theory and geometry, began a systematic rebuilding of the whole field in mid 50s. The result was a very powerful theory of algebraic geometry, whose level of abstraction was something previously unseen in mathematics. Even Mumford, a student of Zariski who won the Fields medal in 1974, stated the following in a letter to Grothendieck: ''... I should say that I find the style of the finished works, esp. EGA, to be difficult and sometimes unreadable, because of its attempt to reach superhuman level of completeness.'' \cite{Mum} One can only imagine the struggle for those mathematicians that weren't quite as good as Mumford when trying to learn the theory. Such was the power of this theory, however, that the theory became universally accepted rather quickly.
+This is however where the contributions of Zariski (essentially) end. For further progress some time had to pass, and another rebuilding of the foundations of algebraic geometry had to happen. Alexander Grothendieck, motivated by the famous Weil conjectures linking together number theory and geometry, began a systematic rebuilding of the whole field in mid 50s. The result was a very powerful theory of algebraic geometry, whose level of abstraction was something previously unseen in mathematics. Even Mumford, a student of Zariski who won the Fields medal in 1974, stated the following in a letter to Grothendieck: ''... I should say that I find the style of the finished works, esp. EGA, to be difficult and sometimes unreadable, because of its attempt to reach superhuman level of completeness.'' \cite{Mum} One can only imagine the struggle for those mathematicians that weren't quite as good as Mumford when trying to learn the theory. Such was the power of this theory, however, that the theory became universally accepted rather quickly, and is nowadays the standard way of doing algebraic geometry.
 
-At the time, resolution of singularities was considered one of the most important open problems in algebraic geometry, for it would enable one to transfer many questions concerning singular varieties to questions involving only nonsingular ones, which are better understood. Even Grothendieck considered the problem to be one of the two most important ones, alongside his standard conjectures (which, to this day, remain open).
+At the time, resolution of singularities was considered one of the most important open problems in algebraic geometry, for it would enable one to transfer many questions concerning singular varieties to questions involving only nonsingular ones, which are better understood. Even Grothendieck considered the problem to be one of the two most important ones, alongside his \emph{standard conjectures} (which, to this day, remain open).
 
-In the 60s Heisuke Hironaka, another student of Zariski to be given the Fields medal, decided to attack the resolution problem. Zariski himself never truly tried to deploy the Grothendieck style of algebraic geometry. This was probably because of the great time investment required in order to learn to use it, combined with the fact that his own research was going well enough. \cite{Par} But Hironaka, like many of the students of Zariski, fully endorsed this new theory. With the new tools given by the theory of schemes, he was able to do what Zariski himself had tried and failed: in the famous paper published in 1964 in Annals of Mathematics, Hironaka gave a complete proof for resolution of singularities over a ground field of characteristic zero. 
+In the 60s Heisuke Hironaka, another student of Zariski to be given the Fields medal, decided to attack the resolution problem. Zariski himself never truly tried to deploy the Grothendieck style of algebraic geometry. This was probably due to the great time investment required in order to learn to use it, combined with the fact that his own research was going well enough without the new tools. \cite{Par} But Hironaka, like many of the students of Zariski, fully endorsed this new theory. With the new tools given by the theory of schemes, he was able to do what Zariski himself had tried and failed: in the famous paper published in 1964 in Annals of Mathematics, Hironaka gave a complete proof for resolution of singularities over a ground field of characteristic zero. 
 
-The proof, originally around 200 pages long, quickly gained a reputation for being extremely complicated and hard to understand. However, in further research the proof has been simplified and shortened considerably. For example in \cite{Wlo} W\l{}odarczyk gives a self contained proof for resolution of singularities via a Hironaka-style argument in around twenty pages! An overview of a Hironaka-style argument for proof of resolution of singularities in characteristic 0 is given in Section \fref{HirRes}.
+The proof, originally around 200 pages long, quickly gained a reputation for being extremely complicated and hard to understand. However, in further research the proof has been simplified and shortened considerably. For example in \cite{Wlo} W\l{}odarczyk gives a self contained proof for resolution of singularities via a Hironaka-style argument in just around twenty pages! An overview of a Hironaka-style argument for proof of resolution of singularities in characteristic 0 is given in Section \fref{HirRes}.
 
 This still left open the finite characteristic case important in many applications to number theory. Partial results were obtained by Shreeram Abhyankar, another student of Zariski, who in 1966 published a proof for resolution of singularities for three-folds over algebraically closed fields of finite characteristic different from $2,3$ and $5$ \cite{HLOQ}. He later on went to generalize his result for three-folds in characteristic $2,3$ and $5$, as well as giving a proof for resolution of singularities for arithmetic surfaces.
 
@@ -164,7 +168,7 @@ This section is devoted to an important construction called \emph{completion} wh
 
 We begin with a motivating example. Recall the nodal curve $C$ from the first section, defined as the solution set of the polynomial $y^2 - x^3 - x^2$. At the origin the curve intersects itself, and it seems like the curve should, at least near the origin, consist of two components. But as $y^2 - x^3 - x^2$ is an irreducible polynomial, the coordinate ring $\OO_C (C)$ is an integral domain, as is the localization $\OO_{C,p}$ at origin $p$.
 
-\begin{figure}\label{node2}
+\begin{figure}[!htbp]\label{node2}
 \begin{center}
 \includegraphics{pics/node.png}
 \caption{The nodal curve.}
@@ -643,17 +647,24 @@ K[a_1,...,a_n] / J^i \to \widehat{A} / \widehat{m_A}^i
 must be surjective for all $i$. Therefore the image of $K[a_1,...,a_n]$ is dense in $\widehat{A}$, and $\widehat{(K[a_1,...,a_n])} = \widehat A$. As $K[a_1,...,a_n]$ is a finitely generated $K$-algebra, its $J$-adic completion is of the wanted form, and we are done.
 \end{proof}
 
-One of the nicer theorems concerning completions tells us, among other things, that if we have a regular point $p$ on a variety $X$, then formally locally the variety looks like an affine space near the point $p$, i.e., $\widehat \OO_{X,p} \cong K[[x_1,...,x_n]]$. Before proving this, however, we need a lemma.
+One of the nicer theorems concerning completions tells us, among other things, that if we have a regular point $p$ on a variety $X$, then formally locally the variety looks like an affine space near the point $p$, i.e., $\widehat \OO_{X,p} \cong K[[x_1,...,x_n]]$. Before proving this, however, we need some lemmas.
+
+\begin{lem}
+Let $A$ be a Noetherian ring, and let $I \subset A$ be an ideal. If $a$ is not a zerodivisor in $A$, and $a \not \in \cap_{n=0}^\infty I^n$, then $a$ is not a zerodivisor in the $I$-adic completion $\widehat A$.
+\end{lem}
+\begin{proof}
+Multiplication by $a$ defines a continuous map $A \to (a)$, which is an algebraic isomorphism (of $A$-modules). The claim now reduces to proving that if $(a_i)$ is a Cauchy sequence in $A$ not converging to $0$, then $(aa_i)$ does not converge to $0$ in $(a)$. Hence it is enough to show that our map is an isomorphism of topological rings, i.e., the relative topology of $(a) \subset A$ coincides with the $I$-adic one. But this follows immediately from the Artin-Rees Lemma, so we are done.
+\end{proof}
 
 \begin{lem}\label{AssociatedPolynomials}
 Let $A$ be a Noetherian ring, and let $I \subset A$ be an ideal generated by a regular sequence $a_1, ... , a_r$. Now the associated graded polynomial $\gr_I (A)$ is isomorphic to the polynomial algebra $(A/I) [x_1,...,x_r]$ via the map $x_i \mapsto [a_i]$.
 \end{lem}
 \begin{proof}
-We reduce this to another problem. Assume that $\gr_I (A)$ is not the free $A/I$-algebra, i.e., we have some homogeneous polynomial $F \in (A/I)[x_1,...,x_r]$ of degree $n$ such that $F([a_1], ... , [a_r]) = 0$. We may lift the polynomial $F$ to a polynomial $\widetilde F \in A[x_1,...,x_r]$ such that $\widetilde F (a_1,...,a_r) \in I^{n+1}$, and hence by Noetherianity of $A$ we may find a nontrivial polynomial $f \in A[x_1,...,x_r]$ \emph{with coefficients outside the ideal $I$} such that $f(a_1,...,a_r) = 0$. We will prove that the existence of this $f$ is impossible.
+We reduce this to another problem. Assume that $\gr_I (A)$ is not the free $A/I$-algebra, i.e., we have some homogeneous polynomial $F \in (A/I)[x_1,...,x_r]$ of degree $n$ such that $F([a_1], ... , [a_r]) = 0$. We may lift the coefficients of $F$, and obtain a polynomial $\widetilde F \in A[x_1,...,x_r]$ such that $\widetilde F (a_1,...,a_r) \in I^{n+1}$, and after adding some degree $n+1$ terms into $\widetilde F$, we obtain a polynomial $f \in A[x_1,...,x_r]$ such that $f(a_1,...,a_r) = 0$. Pick some lowest degree term with coefficient in $I$, and replace it by some higher degree polynomial in such a way that the value of the polynomial at $(a_1,...,a_r)$ doesn't change. If we iterate this process \emph{ad infinitum}, we obtain such a nontrivial power series $g \in A[[x_1,...,x_r]]$ with coefficients outside $I$, that $g (a_1,...,a_r) = 0$ in the $I$-adic completion $\widehat{A}$.
 
-Assume that $r = 1$. As $a_1$ is not a zerodivisor, we may assume that $f$ has nonzero constant coefficient. As the constant coefficient does not lie in $I$, but each other term of the polynomial $f(a_1)$ does lie in $I$, we see that $f(a_1)$ cannot be zero, so we can conclude the impossibility of the existence of $f$ in the case $r=1$.
+Assume that $r = 1$. As $a_1$ is not a zerodivisor in $\widehat A$, we may assume that $g$ has nonzero constant coefficient. As the constant coefficient does not lie in $\widehat I$, but each other term of the (perhaps infinite) sum  $g(a_1)$ does lie in $\widehat I$, we see that $f(a_1)$ cannot be zero, so we can conclude the impossibility of the existence of such $G$ in the case $r=1$.
 
-Assume then that $r>1$ and all the smaller cases have been taken care of. Again, as $a_1$ is not a zerodivisor, we may assume that $f$ is not divisible by $x_1$. Therefore we obtain a nontrivial polynomial $f(0,x_2,...,x_r) \in (A/(a_1))[x_2,...,x_r]$ with coefficients lying outside the image of $I$, which is an ideal generated by a regular sequence of $r-1$ elements. The existence of such polynomial is however known to be impossible by induction, so we are done.
+Assume then that $r>1$ and all the smaller cases have been taken care of. Again, as $a_1$ is not a zerodivisor in $\widehat A$, we may assume that $g$ is not divisible by $x_1$. Therefore we obtain a nontrivial power series $g(0,x_2,...,x_r) \in (A/(a_1))[x_2,...,x_r]$ with coefficients lying outside the image of $I$, which is an ideal generated by a regular sequence of $r-1$ elements. The existence of such polynomial is however known to be impossible by induction, so we are done.
 \end{proof}
 
 \begin{thm}
@@ -667,16 +678,16 @@ Let $a_1,...,a_d$ be a regular sequence generating the maximal ideal $m_A$ of $A
 
 One of the most common ways of getting rid of singularities is called \emph{blowing up}. The simplest case is blowing up a point on a plane, which we are going to introduce through an example now. Recall our old friend, the nodal curve, which has a singularity at the origin. We are going to get rid of the singularity by blowing up the origin.
 
-\begin{figure}\label{node3}
+\begin{figure}[!htbp]\label{node3}
 \begin{center}
 \includegraphics{pics/node.png}
 \caption{The nodal curve.}
 \end{center}
 \end{figure}
 
-We begin by mapping each point of the curve, except the origin, into a three dimensional space via the map that sends $(x,y)$ to $(x,y,y/x)$. The $z$-coordinate is just the slope of the direct line connecting the point $(x,y)$ with the origin.
+We begin by mapping each point of the curve, except the origin, into a three dimensional space via the map that sends $(x,y)$ to $(x,y,y/x)$. We note that the $z$-coordinate is just the slope of the direct line connecting the point $(x,y)$ with the origin.
 
-\begin{figure}\label{blownUpNode}
+\begin{figure}[!htbp]\label{blownUpNode}
 \begin{center}
 \includegraphics[scale=0.8]{pics/blown_up_node.png}
 \caption{The Zariski closure of the image of nodal curve in affine 3-space.}
@@ -685,7 +696,7 @@ We begin by mapping each point of the curve, except the origin, into a three dim
 
 When we embed the nodal curve, except of course the origin, this way into the affine three space $\Aff^3$, the resulting space curve won't have any points on the locus $x=0$. The points $(x,y,z)$ belonging to the image satisfy two algebraic relations. First of all, they must satisfy $y^2 - x^3 - x^2 = 0$ for this was the defining equation for the nodal curve. Secondly, we must have $zx = y$ because we sent the point $(x,y)$ of the curve to $(x,y,y/x)$.
 
-Any point of $\Aff^3$ having $x=0$ and $y=0$ satisfy the two algebraic relations we just mentioned, and in fact, if we denote by $C'$ the set of points in $\Aff^3$ lying in the image of the nodal curve without origin, we can see that the two polynomial equations cut out exactly $C'$ and the $z$-axis. We can do better. The \emph{Zariski closure} $\overline{C'}$ of $C'$ in $\Aff^3$ is the smallest subset of $\Aff^3$ that is given by some polynomial equation system and that contains $C'$. In this case it is the set of points cut out by $zx - y$ and $z^2 - x - 1$, and it is visualized in \fref{blownUpNode}. Projection $\Aff ^3 \to \Aff^2$ sending $(x,y,z) \to (x,y)$ maps the Zariski closure $\overline{C'}$ to the nodal curve $C$, and this mapping $\overline{C'} \to C$ is called the \emph{blow-up}.
+Any point of $\Aff^3$ having $x=0$ and $y=0$ satisfy the two algebraic relations we just mentioned, and in fact, if we denote by $C'$ the set of points in $\Aff^3$ lying in the image of the nodal curve without origin, we can see that the two polynomial equations cut out exactly $C'$ and the $z$-axis. This seems to be uneconomic in some sense, and we can actually do better. The \emph{Zariski closure} $\overline{C'}$ of $C'$ in $\Aff^3$ is the smallest subset of $\Aff^3$ that is given by some polynomial equation system and that contains $C'$. In this case it is the set of points cut out by $zx - y$ and $z^2 - x - 1$, and it is visualized in \fref{blownUpNode}. Projection $\Aff ^3 \to \Aff^2$ sending $(x,y,z) \to (x,y)$ maps the Zariski closure $\overline{C'}$ to the nodal curve $C$, and this mapping $\overline{C'} \to C$ is called the \emph{blow-up}.
 
 Outside the origin the preimage of a point of the nodal curve $C$ is a single point in $\overline{C'}$, and the preimage of the origin consist of two points that correspond to the two branches. The blown up curve $\overline{C'}$ contains no singularities, so we have managed to resolve them. In this section, we are going to give the basic constructions and results of blow-ups.
 
@@ -919,7 +930,7 @@ An important special case of blow-up is the case when $X$ is a non-singular sche
 
 Localized at a point $p \in Y$, $Y_p$ is cut out by $X_p$ by $r$ equations $a_1,...,a_r \in \OO_{X,p}$ such that $a_1,...,a_r$ is a subsequence for some regular system of parameters. Therefore we can conclude that $a_1, ..., a_r$ form a regular sequence, and that they are prime elements of $\OO_{X,p}$. Hence in some affine open neighbourhood $U$ of $p$, the local sections $a_1,...,a_r \in \OO_X(U)$ form a regular sequence, and each $a_i$ is a prime element. Especially, we can conclude that $a_i$ are distinct prime elements. This leads to our first result concerning the structure of smooth blow-ups.
 
-\begin{prop}
+\begin{prop}\label{StructureOfSmoothBlowUps1}
 Let $A$ be a Noetherian integral domain, let $a_1,...,a_r$ be distinct prime elements of $A$ and let $I$ be the ideal generated by the $a_i$. Now the Rees-algebra $A[It]$ is isomorphic to $A[x_1,...,x_r]$, modulo the relations $a_i x_j - a_j x_i = 0$, through the map that sends $x_i$ to $a_i t$. 
 \end{prop} 
 \begin{proof}
@@ -945,7 +956,15 @@ Assume that $A$ and $A/I$ are regular rings, and that $I$ is generated by a regu
 \end{rem}
 
 \begin{rem}
-It is clear that the procedure used in the above proof can be generalized to very general situations when trying to find out a representation for a finitely generated sub $A$-algebra of $A[x_1,...,x_n]/I$. However, if $A$ is not an UFD, then there are some technical difficulties with Buchberger's criterion, as there may not be just one ''elimination polynomial'' $h$. In the proof above, this wasn't a problem, as every leading term had either a unit or a prime coefficien, but in more general situations we might run into trouble. Once these technical difficulties are settled, however, one would be able to, for example, find a representation for \emph{any} Rees-algebra $A[It]$ as a quotient ring of some $A[x_1,...,x_n]$ in an entirely mechanical fashion, and hence be able to compute all blow-ups mechanically.
+We can now give another proof for \fref{AssociatedPolynomials} under the assumption of the previous remark. The associated graded ring is exactly the quotient of the Rees-algebra $A[It]$ by the homogeneous ideal generated by the elements of $I$, and as 
+\begin{equation*}
+A[It] \cong A[x_1,...,x_r]/(a_i x_j - a_j x_i)_{i,j},
+\end{equation*}
+it is easily seen that the associated graded ring will be just $(A/I)[x_1,...,x_r]$.
+\end{rem}
+
+\begin{rem}
+It is clear that the procedure used in the proof of \fref{StructureOfSmoothBlowUps1} can be generalized to very general situations when trying to understand the structure of a finitely generated sub $A$-algebra of $A[x_1,...,x_n]/I$ in practice. However, if $A$ is not an UFD, then there are some technical difficulties with Buchberger's criterion, as there may not be just one ''elimination polynomial'' $h$. In the proof above, this wasn't a problem, as every leading term had either a unit or a prime coefficien, but in more general situations we might run into trouble. Once these technical difficulties are settled, however, one would be able to, for example, find a representation for \emph{any} Rees-algebra $A[It]$ as a quotient ring of some $A[x_1,...,x_n]$ in an entirely mechanical fashion, and hence be able to compute (essentially) all blow-ups mechanically.
 \end{rem}
 
 Another nice thing about a smooth blow-up $\bl_Y (X) \to X$ is that the blown up space $\bl_Y (X)$ stays non-singular, as the next proposition shows.
@@ -954,7 +973,7 @@ Another nice thing about a smooth blow-up $\bl_Y (X) \to X$ is that the blown up
 Let $A$ be a regular ring and let $I \subset A$ be an ideal such that $A/I$ is a regular. Now the projective scheme $\proj (A[It])$ is regular. 
 \end{prop}
 \begin{proof}
-We already know that the points outside the exceptional divisor are regular, as the blow-up morphism is an isomorphism there. As the exceptional divisor $D$ is locally cut out by a single nonzerodivisor, we can see, that if $p \in D$ is regular regarded as a point of $D$, then it will also be regular regarded as a point of the blow-up $\proj (A[It])$, so it suffices to characterize the points of $D$.
+We already know that the points outside the exceptional divisor are regular, as the blow-up morphism is an isomorphism there. As the exceptional divisor $D$ is locally cut out by a single nonzerodivisor, we can see that, if $p \in D$ is regular regarded as a point of $D$, then it will also be regular regarded as a point of the blow-up $\proj (A[It])$, so it suffices to characterize the points of $D$.
 
 Recall that the homogeneous ideal associated to $D$ is $I \oplus I^2 \oplus ...$, and hence the exceptional divisor is given by
 \begin{equation*}
@@ -983,9 +1002,21 @@ Let $X$ be a smooth variety and let $\mathscr{I}$ be an ideal sheaf on $X$. Now 
 This is clear.
 \end{proof}
 
-For a $k$-variety $X$, denote by $\der_k(X)$ the (clearly quasicoherent) sheaf of $k$-derivations $\OO_X \to \OO_X$. This sheaf comes with the natural derivation map $\der_k (X) \times \OO_X \to \OO_X$, which is $k$-bilinear. For an ideal sheaf $\mathscr{I} \subset \OO_X$ define the ideal sheaf $D(\mathscr{I})$  by taking the ideal sheaf locally generated by the local images of $\der_k (X) \times \mathscr{I}$ under the derivation map. We can define \emph{higher ideal derivations} $D^n(\mathscr{I})$ in the obvious way by composing $D$ with itself. We can define $\der_k(A)$ and $D^n (I)$ for a $k$-algebra $A$ and an ideal $I$ in an obvious way.
+For a $k$-variety $X$, denote by $\der_k(X)$ the (clearly quasicoherent) sheaf of $k$-derivations $\OO_X \to \OO_X$, which is clearly just the dual of $\Omega_{X/k}$. This sheaf comes with the natural derivation map $\der_k (X) \times \OO_X \to \OO_X$, which is $k$-bilinear. For an ideal sheaf $\mathscr{I} \subset \OO_X$ its \emph{derivative} $D(\mathscr{I})$ by taking the ideal sheaf locally generated by the local images of $\der_k (X) \times \mathscr{I}$ under the derivation map. This is clearly an ideal sheaf. We can define \emph{higher ideal derivatives} $D^n(\mathscr{I})$ in the obvious way by composing $D$ with itself. We can define $\der_k(A)$ and $D^n (I)$ for a $k$-algebra $A$ and an ideal $I$ in an obvious way.
 
-Our next step is to show that the ideal derivation operator $D$ drops the order of the ideal by $1$ at all points (except if the order was already 0). To prove this, we need to find out how $D$ interacts with completion.
+Our next step is to show that the ideal derivation operator $D$ drops the order of the ideal by $1$ at all points (except if the order was already 0, of course) when $X$ is nonsingular. To prove this, it is enough to show that the ideal generated by $D(\mathscr{I})$ in $\widehat{\OO}_{X,p} = K[[x_1,...,x_d]]$ coincides with the derivative ideal of $\widehat{\mathscr{I}}_{p} \subset K[[x_1,...,x_d]]$.
+
+Assume $X$ is a smooth $k$-variety. By passing into local coordinates, we may assume that it is the spectrum of $A=k[x_1,...,x_n] / I$, so that $\der_k(A)$ (which has the obvious meaning) is generated by $\partial_1,...,\partial_n$. If an ideal $J \subset A$ is generated by $[f_1], ..., [f_r]$, then the derivative $D(J)$ is generated by $([\partial_j f_i])_{i,j}$. This construction clearly commutes with extension of base field. Also completion commutes with base extension, as the next lemma shows:
+
+\begin{lem}
+Let $A$ be a $k$-algebra, $I \subset A$ an ideal, and $K/k$ a field extension. Now there is a canonical isomorphism $K \otimes_k \widehat{A} \cong \widehat{K \otimes_k A}$, where the latter completion is taken with respect to $I' = K \otimes_k I$.
+\end{lem}
+\begin{proof}
+By exactness of tensoring over a field, we have
+\begin{equation*}
+K \otimes_k (A/I^n) = (K \otimes_k A)/I'^n,
+\end{equation*}
+\end{proof}
 
 \begin{lem}
 Let $X$ be a smooth $k$-variety, let $\mathscr{I}$ be an ideal sheaf on $X$, and let $p \in X$. Now $D(\widehat{\mathscr{I}_p}) = \widehat{D(\mathscr{I}_p)}$.
