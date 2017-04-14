@@ -786,7 +786,7 @@ Our new notion coincides with the earlier one. Let's blow up the origin in an af
 
 Perhaps the easiest way to think about $A \oplus I \oplus I^2 \oplus ...$ is to think it as the Rees-algebra $A[It] \subset A[t]$. This is a quotient of the graded $A$-algebra $A[y_1, ... , y_n]$, where we assume that $y_1,...,y_n$ have no algebraic relations amongst themselves, whose proj is just $\Proj_{\Aff^n}^{n-1}$, which in turn is naturally isomorphic to $\Aff^n \times_k \Proj_k^{n-1}$. Hence it is a closed subscheme of $\Aff^n \times_k \Proj_k^{n-1}$, as was our original definition.
 
-What are the relations we must introduce between $y_i$ in order to get the Rees-algebra $A[It]$? At least we must have $x_i y_j - x_j y_i = 0$, which are exactly the relations that cut the blow-up of our original definition. But are these relations enough this time? As it turns out, they are, which we are going to prove next.
+What are the relations we must introduce between $y_i$ in order to get the Rees-algebra $A[It]$? At least we must have $x_i y_j - x_j y_i = 0$, which are exactly the relations that cut the blow-up of our original definition. But are these relations enough this time? As it turns out, they really are, but proving this is a bit tricky.
 
 Every polynomial $f \in A[y_1,...,y_1]$ can be broken into a sum
 \begin{equation*}
@@ -796,15 +796,15 @@ where $c_i \in k$, and $M_i, N_i$ are monomials. Image of each such term in $A[I
 \begin{equation*}
 c M(x_1,...,x_n)N(x_1,...,x_n)t^{\deg (N)},
 \end{equation*}
-which is a monomial in $A[It] \subset k[x_1,...,x_n,t]$. For each such monomial in $A[It]$ we may collect all the summands, whose image corresponds to the same monomial up to multiplication by a scalar in $k$. All such terms are of form $c' M'(x_1,...,x_n)N'(x_1,...,x_n)$ such that
+which is a monomial in $A[It] \subset k[x_1,...,x_n,t]$. For each such monomial in $A[It]$ we may collect all the summands whose image corresponds to the same monomial up to multiplication by a scalar in $k$. All such terms are of form $c' M'(x_1,...,x_n)N'(x_1,...,x_n)$ such that
 \begin{equation*}
 M'(x_1,...,x_n)N'(x_1,...,x_n)t^{\deg (N')} = M(x_1,...,x_n)N(x_1,...,x_n)t^{\deg (N)},
 \end{equation*}
 so if we form the sum of all these, we see that we obtain a polynomial $F$ that is homogeneous as an element of $A[y_1,...,y_n]$ and has as coefficients monomials of $A = k[x_1,...,x_n]$. Moreover, it is also homogeneous as a polynomial in $k[x_1,...,x_n,y_1,...,y_n]$.
 
-Assume now that $f$ is a nonzero polynomial in the kernel of $A[y_1,...,y_n] \to A[It]$. Take some $F$ formed by the above-mentioned procedure. We note that $F$ must lie in the kernel as well, as different monomials in $A[It]$ are linearly independent, and the sum of all coefficients $c' \in k$ preceding the terms of the sum must be 0. We are done if we can show that $F$ is zero modulo the relations $x_i y_j - x_j y_i$. But this is almost trivial. Using the relations $x_i y_j - x_j y_i$ we may transform all the terms in $F$ into some scalar $c'$ times $M(x_1,...,x_n)N(x_1,...,x_n)$. As the sum of the scalars must be 0, the sum thus obtained will be 0, and we are done.
+Assume now that $f$ is a nonzero polynomial in the kernel of $A[y_1,...,y_n] \to A[It]$. Take some $F$ formed by the above-mentioned procedure. We note that $F$ must lie in the kernel as well, as different monomials in $A[It]$ are linearly independent, and the sum of all coefficients $c' \in k$ preceding the terms of the sum must be 0. We are done if we can show that $F$ is zero modulo the relations $x_i y_j - x_j y_i$. But this is almost trivial. Using the relations $x_i y_j - x_j y_i$ we may transform all the terms in $F$ into some scalar $c'$ times $M(x_1,...,x_n)N(y_1,...,y_n)$. As the sum of the scalars must be 0, the sum thus obtained will be 0, and we are done.
 
-A similar result holds in more general settings, which we are going to prove when we start talking about \emph{smooth blow-ups}. The proof of the more general result is a bit more technical as it uses the theory of Gröbner bases. 
+A similar result holds in more general settings, which we are going to prove when we start talking about \emph{smooth blow-ups}. The proof of the more general result is a bit more technical and it uses the theory of Gröbner bases. 
 \end{ex}
 
 If we blow up $X$ along an ideal sheaf $\mathscr{I}$ (along a subscheme $Y$) then nothing changes outside the cosupport of $\mathscr{I}$ (outside $Y$).
@@ -813,7 +813,7 @@ If we blow up $X$ along an ideal sheaf $\mathscr{I}$ (along a subscheme $Y$) the
 Let us have a sheaf of ideals $\mathscr{I}$ of a scheme $X$, and let $U = X \backslash \cosupp (\mathscr{I})$. Now $U$ is isomorphic to its preimage in the blow-up map. 
 \end{prop}
 \begin{proof}
-The cosupport of $\mathscr{I}$ are exactly the points around which we have a neighbourhood $V$ such that $\mathscr{I} |_V  = \OO_X |_V$. Hence it is easy to see that $\mathscr{I}|_U = \OO_U$. Hence it is enough to prove that the blow-up of a scheme $X$ along $\OO_X$ is $X$. But this is easy to do locally. If $A$ is a ring, then the Rees-algebra $A[At]$ is just $A[t]$, and hence $\proj (A[t]) = A$ naturally along the projection map. As these local projection maps glue to give the global projection map, we are done.
+Outside the cosupport of $\mathscr{I}$ are exactly the points around which we have a neighbourhood $V$ such that $\mathscr{I} |_V  = \OO_X |_V$, and therefore $\mathscr{I}|_U = \OO_U$. Hence, it is enough to prove that the blow-up of a scheme $X$ along $\OO_X$ is $X$. But this is trivial when we look at the situation locally. If $A$ is a ring, then the Rees-algebra $A[At]$ is just $A[t]$, and hence $\proj (A[t]) = \spec (A)$ naturally along the projection map. As these local projection maps glue to give the global projection map, we are done.
 \end{proof}
 
 For any morphism $f: X \to Y$ of schemes and every ideal sheaf $\mathscr{I} \subset \OO_Y$ we have the \emph{inverse image ideal sheaf} $f^{-1} \mathscr{I} \cdot \OO_X$, which is the subsheaf of $\OO_Y$ locally generated by the images of elements of $\OO_Y (U)$ in $\OO_X (f^{-1} U)$. It is not \emph{a priori} clear that this satisfies our definition of an ideal sheaf, as we still need to make sure that it is finitely generated and quasicoherent.
@@ -838,7 +838,7 @@ By checking over all affine open $U \subset X$ we see that the ideal in question
 But the sheaf on $\bl_\mathscr{I} (X)$ given by this graded sheaf is exactly the first twisting sheaf $\OO_{\bl_\mathscr{I} (X)}(1)$, which is known to be invertible. This proves the claim.
 \end{proof}
 
-Moreover, blowing up along an invertible ideal sheaf doesn't change anything, so after we blow up along $\mathscr{I}$ then blowing up along the inverse image ideal sheaf does nothing.
+Moreover, blowing up along an invertible ideal sheaf doesn't change anything, so after we blow up along $\mathscr{I}$, then blowing up along the inverse image ideal sheaf does nothing.
 
 \begin{prop}
 Let $\mathscr{I}$ be an invertible sheaf of ideals on a scheme $X$. Now the blow-up morphism $\bl_{\mathscr{I}} (X) \to X$ is an isomorphism.
@@ -851,7 +851,7 @@ The preimage of the cosupport of $\mathscr{I}$ in the blow-up map $\bl_{\mathscr
 
 \subsection{Transformations of sheaves of ideals}
 
-This section, although rather short, will be very important for us later, as it contains four fundamental definitions. Let us have a scheme $X$ and a blow-up map $\bl_{\mathscr{I}}(X) \to X$ along $\mathscr{I}$ and let $\mathscr{J}$ be an ideal sheaf. There are four ways to transform the ideal $\mathscr{J}$ under blow-up:
+In this section we give the definitions for all the different transformations of ideal sheaves under blow-ups we are going to need. Let us have a scheme $X$ and a blow-up map $\bl_{\mathscr{I}}(X) \to X$ along $\mathscr{I}$, and let $\mathscr{J}$ be an ideal sheaf. There are four ways to transform the ideal $\mathscr{J}$ under blow-up:
 
 \begin{itemize}
 \item The \emph{total transform} $\mathscr{J}^{tot}$ of $\mathscr{J}$ is just the inverse image ideal sheaf under the map $\bl_{\mathscr{I}}(X) \to X$.
@@ -860,7 +860,7 @@ This section, although rather short, will be very important for us later, as it 
 
 This clearly corresponds to the closure (in the algebro-geometric sense) of the closed subscheme defined by $\mathscr{I}^{tot}$ minus the exceptional divisor in $\bl_{\mathscr{I}} (X)$, and is therefore at least quasicoherent. Over locally Noetherian schemes, however, it is also necessarily finitely generated, and as all schemes we actually work with are locally Noetherian, we see that this is an ideal sheaf.
 
-\item The \emph{weak transform} $\mathscr{J}^{w}$ is the inverse image ideal sheaf of $\mathscr{J}$ under $\bl_{\mathscr{I}}(X) \to X$ divided as many times by the ideal sheaf of the exceptional divisor as many times as possible.
+\item The \emph{weak transform} $\mathscr{J}^{w}$ is the inverse image ideal sheaf of $\mathscr{J}$ under $\bl_{\mathscr{I}}(X) \to X$ divided as many times by the ideal sheaf of the exceptional divisor as possible.
 
 \item The \emph{controlled transform} $\mathscr{J}^{c}$ is like the weak transform except we have the \emph{control} (a positive integer) which limits the number of times we divide by the inverse image ideal sheaf of $\mathscr{I}$.
 \end{itemize}
@@ -872,7 +872,7 @@ We also have the corresponding transforms for closed subschemes $Y$ of $X$ defin
 From our construction of blow-up it is trivial to see that it commutes with passing to an open subscheme, and this also works in the limit, i.e., when restricting to the localization at a point. Next we show that blowing up commutes with passing to a closed subscheme.
 
 \begin{prop}\label{BlowUpCommutesWithClosedEmbeddings}
-Let $X$ be a scheme, $\mathscr{I}$ a sheaf of ideals, and let $Y \stackrel{i}{\hookrightarrow} X$ be a closed embedding corresponding to an ideal sheaf $\mathscr{J}$. Now there is an unique morphism $\bl_{\mathscr{I}|_Y}(Y) \to \bl_{\mathscr{I}}(X)$ making the square
+Let $X$ be a scheme, $\mathscr{I}$ a sheaf of ideals, and let $Y \stackrel{i}{\hookrightarrow} X$ be a closed embedding corresponding to an ideal sheaf $\mathscr{J}$. Now there is a unique morphism $\bl_{\mathscr{I}|_Y}(Y) \to \bl_{\mathscr{I}}(X)$ making the square
 \begin{center}
 \begin{tikzpicture}[scale=1]
 \node (Y) at (0,0) {$Y$};
@@ -921,6 +921,27 @@ commute. Moreover, this map is a closed embedding.
 \end{prop}
 \begin{proof}
 Now $(i_*\mathscr{J})|_Y = \mathscr{J}$, so this immediately follows from the last proposition.
+\end{proof}
+
+Finally, we note that blowing up is independent of the coordinate field.
+
+\begin{prop}
+Let $X$ be a $k$-scheme, $\mathscr{I}$ be an ideal sheaf, and let $K$ be a field extension of $k$. Now $\bl_{\mathscr{I}} (X_K)$ is naturally isomorphic to $\bl_{\mathscr{I}} (X)_K$, where the lower index $K$ denotes the extension of scalars $K / k$.
+\end{prop}
+\begin{proof}
+Pass to affine local neighbourhood $\spec (A)$. Locally the blow-up is given by $\proj (A[It])$. Now we have a natural inclusion of graded rings
+\begin{equation*}
+A [I t] \hookrightarrow (K \otimes_k A) [(K \otimes_k I) t]
+\end{equation*}
+which induces a map
+\begin{equation*}
+\proj ((K \otimes_k A) [(K \otimes_k I) t]) \to \proj (A [I t])
+\end{equation*} 
+of projective schemes. This clearly induces a natural local isomorphism
+\begin{equation*}
+\proj ((K \otimes_k A) [(K \otimes_k I) t]) \to \spec (K)  \times_{\spec (k)} \proj (A [I t])
+\end{equation*}
+which glue to give the desired natural isomorphism.
 \end{proof}
 
 \subsection{Smooth blow-ups}
@@ -987,7 +1008,14 @@ The purpose of this section is to give an outline for the proof for resolution o
 
 \subsection{Order}
 
-Let $X$ be a locally Noetherian scheme, and $\mathscr{I}$ an ideal sheaf on $X$. The \emph{order} of $\mathscr{I}$ at point $p$ is defined as the maximal $n \in \N$ such that $m_{X,p}^n$ contains $\mathscr{I}_p$. By the Krull intersection theorem such an $n$ always exists. Although the definition is quite simple, the order of an ideal is a very important invariant for resolution, and this section is dedicated to understanding its basic properties.
+Let $X$ be a locally Noetherian scheme, and $\mathscr{I}$ an ideal sheaf on $X$. The \emph{order} of $\mathscr{I}$ at point $p$ is defined as the maximal $n \in \N$ such that $m_{X,p}^n$ contains $\mathscr{I}_p$. By the Krull intersection theorem such an $n$ always exists. Although the definition is quite simple, the order of an ideal is a very important invariant for resolution, and this section is dedicated to understanding its basic properties, and how it interacts with blowing up. First we note that the order is a ''geometric'' invariant.
+
+\begin{prop}
+Assume $A$ is a regular local $k$-algebra with $K = A/m_A$ finite over $k$. Now the multiplicity of an ideal $I \subset A$ equals the multiplicity of $\overline{k} \otimes_k I$ at any closed point of $\overline{k} \otimes_k A$.
+\end{prop}
+\begin{proof}
+As $A$ is regular and $k$ of characteristic $0$, we see that the quotient ring $A / m_A^n$ is just $K [x_1,...,x_d]/(x_1,...,x_d)^n$. Hence, if we denote by $r$ the degree of the extension $K / k$, we see that $(\overline{k} \otimes_k A) / (\overline{k} \otimes_k m_A)^n$ is just the product of $r$ copies of $\overline{k}[x_1,...,x_d] / (x_1,...,x_d)^n$. The localization of $(\overline{k} \otimes_k m_A)^n$ at any of the closed points coincides with the $n^{th}$ power of the corresponding maximal ideal, and therefore we see that if $\overline{I} = \overline{k} \otimes_k I \not\subset (\overline{k} \otimes_k m_A)^n$, then the order of $\overline{I}$ is smaller than $n$ at \emph{some} closed point of $\spec (\overline{k} \otimes_k A)$. But clearly the ideal $\overline{I} \otimes_k I$ has the same order at all closed points! Now simply noting that $\overline{I} \subset (\overline{k} \otimes_k m_A)^n$ if and only if $I \subset m_A^n$ proves the claim.
+\end{proof}
 
 Assume that we have a smooth variety $X$. We know that $\widehat \OO_{X,p}$ is isomorphic to $K[[x_1,...,x_d]]$, where $K$ is the residue field at $p$. This leads to a nice alternative characterization of the order of an ideal sheaf at $p$.
 
@@ -1001,7 +1029,7 @@ Let $X$ be a smooth variety and let $\mathscr{I}$ be an ideal sheaf on $X$. Now 
 This is clear.
 \end{proof}
 
-For a $k$-variety $X$, denote by $\der_k(X)$ the (clearly quasicoherent) sheaf of $k$-derivations $\OO_X \to \OO_X$, which by definition is just the dual sheaf of $\Omega_{X/k}$. This sheaf comes with the natural derivation map $\der_k (X) \times \OO_X \to \OO_X$, which is $k$-bilinear. For an ideal sheaf $\mathscr{I} \subset \OO_X$ its \emph{derivative} $D(\mathscr{I})$ by taking the ideal sheaf locally generated by the local images of $\der_k (X) \times \mathscr{I}$ under the derivation map. This is clearly an ideal sheaf. We can define \emph{higher ideal derivatives} $D^n(\mathscr{I})$ in the obvious way by composing $D$ with itself. We can define $\der_k(A)$ and $D^n (I)$ for a $k$-algebra $A$ and an ideal $I$ in an obvious way.
+For a $k$-variety $X$, denote by $\der_k(X)$ the (clearly quasicoherent) sheaf of $k$-derivations $\OO_X \to \OO_X$, which by definition is just the dual sheaf of $\Omega_{X/k}$. This sheaf comes with the natural derivation map $\der_k (X) \times \OO_X \to \OO_X$, which is $k$-bilinear. For an ideal sheaf $\mathscr{I} \subset \OO_X$, define its \emph{derivative} $D(\mathscr{I})$ by taking the ideal sheaf locally generated by the local images of $\der_k (X) \times \mathscr{I}$ under the derivation map. This is clearly an ideal sheaf. We can define \emph{higher ideal derivatives} $D^n(\mathscr{I})$ in the obvious way by composing $D$ with itself. We can define $\der_k(A)$ and $D^n (I)$ for a $k$-algebra $A$ and an ideal $I$ in an obvious way.
 
 Assume that $X$ is a smooth $k$-variety. We want to show that the order of $\mathscr I$ is \emph{upper semi-continuous}, i.e., that for each $n \in \N$, the set consisting of points $p \in X$ such that the order of $\mathscr I$ at $p$ is at least $n$, is closed.  Having order $\geq 1$ is equivalent to vanishing, and therefore the claim holds at least for $n=1$. If we can show that the ideal differentiation operator $D$ drops the order by exactly $1$ at all points having nonzero order, then the claim follows easily. This is exactly the strategy we are going to use, although the full proof requires some effort. We begin with a proof for closed points.
 
@@ -1092,8 +1120,41 @@ and
 \end{equation*}
 \end{prop}
 
-Next we are interested in how the order of ideals changes in \emph{monomial transforms}, i.e., under blow-ups. First, however, we need to see what smooth blow-ups look like in formal neighbourhoods.
+Next we are interested in how the order of ideals changes in \emph{monomial transforms}, i.e., under blow-ups. More precicely, we are interested how the order of an ideal is affected when we take the weak transformation in some blow up.
 
+\begin{prop}
+Let $\mathscr{J}$ be an ideal sheaf on $X$, and let $\mathscr{I}$ be the ideal sheaf of some regular closed subscheme $Y$ of $X$ contained in the top locus of $\mathscr{J}$. Now the maximal order of $\mathscr{J}^w$ on $\bl_{\mathscr{I}} (X)$ is not greater than that of $\mathscr{J}$ on $X$.
+\end{prop}
+\begin{proof}
+By Zariski's main lemma on holomorphic functions, we need to show only that if the order of $\mathscr{J}$ is $o$ at some \emph{closed} point $p$ of $X$, then the order of $\mathscr{J}^w$ at any closed point $p'$ of $\bl_{\mathscr{I}} (X)$ is at most $o$. As both the order of an ideal and blowing up behave well under extension of scalars, we may assume that the coefficient field $k$ is algebraically closed.
+
+We reduce to the local case around some closed (necessarily $k$-valued) point $p \in X$. Nothing interesting happens if $p \not\in V(\mathscr{I})$, so we have a regular local ring $A$, a proper ideal $I \subset A$ generated by a subsequence of some regular system of parameters, and an ideal $J \subset A$. Let $a_1,...,a_n$ be a regular system of parameters of $A$, and $I = (a_1,...,a_r)$. 
+
+
+We already know that the exceptional divisor of $\bl_I (X)$ is $\proj ((A/I) [x_1,...,x_r])$, and therefore the points of the blow-up that lie over $p$ form the projective scheme $\proj (k[x_1,...,x_r])$. By performing linear transformation on the $a_1,...,a_r$, we may assume that the point on the blown up scheme $\bl_{\mathscr{I}} (X)$ we are interested in corresponds to the point $[1:0:...:0]$ in the projective scheme.
+
+The local blow-up corresponds to the graded algebra $A[a_1 t, ..., a_r t]$, whose first chart is the spectrum of 
+\begin{equation*}
+A \left[ {a_2 \over a_1}, ... , {a_r \over a_1} \right].
+\end{equation*}
+The point we are interested in corresponds to the maximal ideal
+\begin{equation*}
+\left( a_1, {a_2 \over a_1}, ... , {a_r \over a_1} \right).
+\end{equation*}
+As everything stays smooth and $n$-dimensional, we see that this is also a regular system of parameters for that point. Hence, formally locally, we have a map of rings of formal power series
+\begin{equation*}
+k[[x_1,...,x_r]] \to k[[y_1,...,y_r]]
+\end{equation*}
+defined by $x_1 \mapsto y_1$, and $x_i \mapsto y_1 y_i$ for $i>1$.
+
+Hence we can conclude that in \emph{all smooth blow-ups, the order of the total transformation $J^w$ at some point $p'$ is at most twice the order of $J$ at the point $p$ that $p'$ lies over.} Now we just need to see what happens when we divide by the ideal of the exceptional divisor.
+
+On the first chart of the blow-up, we see that the image of $I$ in
+\begin{equation*}
+A \hookrightarrow A \left[ {a_2 \over a_1}, ... , {a_r \over a_1} \right].
+\end{equation*}
+is actually generated by $a_1$. Hence dividing an ideal by the ideal of the exceptional locally corresponds to dividing it by $a_1$, and hence each division drops the order by $1$. Also from the formally local characterization, and from the fact that the order of $J$ is $o$ along the whole vanishing set of $I$, we see that we can divide $J^{tot}$ by the inverse image sheaf of $I$ exactly $o$ times (as this is the case at each closed point). This concludes the proof.  
+\end{proof} 
  
 \subsection{Monomalization of ideals -- an outline of the proof}
 
