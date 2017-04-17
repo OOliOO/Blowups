@@ -1194,10 +1194,41 @@ As the total transformation $\Pi^{tot} (\mathscr{I})$ is a monomial sheaf, the t
 The fact that we can get a map $R(X) \to X$ that is isomorphism over the nonsingular locus of $X$ is related to finer details of the construction. The fact that this is indeed possible will become clear later.
 \end{proof}
 
-The proof seems to be... cheating to say the least
+The proof strikes out as very odd. It is almost as if, purely by accident, the resolution just sort of happens. And we don't seem to be using the fact that we are turning the ideal $\mathscr{I}$ into a monomial ideal at all. We will get back to these points later.
  
-\subsection{Monomalization of ideals -- an outline of the proof}
+\subsection{Monomalization of ideals -- the strategy of the proof}
 
+In this section we outline the battle plan. Let us have a smooth $k$-variety $X$ and a sheaf of ideals $\mathscr{I}$. Instead of trying to directly associate to each pair $(X, \mathscr{I})$ a ''good'' map $X' \to X$ such that the total transformation $\mathscr{I}$ (the pre-image ideal sheaf) is monomial, it is beneficial for the inductive argument to associate a sequence of smooth blow-ups
+\begin{equation*}
+X_r \stackrel{\pi_{r-1}}{\to} \cdots \stackrel{\pi_0}{\to} X_0.
+\end{equation*}
+The centres of the blow-ups are considered to be part of the data, as they are not necessarily uniquely determined by the map (for example if we blow up a codimension one subvariety).
+
+One important part of the proof is induction by dimension. To do this, we need a way to transform blow-up sequences. If $Y$ is a closed subvariety of $X$, then we have two very natural transformations to consider: we may either restrict a blow-up sequence from $X$ to $Y$ or extend one from $Y$ to $X$.
+
+\begin{defn}
+\textbf{Restriction.} If we have a blow-up sequence 
+\begin{equation*}
+\Pi: X_{r} \stackrel{\pi_{r-1}}{\to} X_{r-1} \stackrel{\pi_{r-1}}{\to} \cdots \stackrel{\pi_0}{\to} X_0 = X
+\end{equation*}
+on $X$, then we may \emph{restrict} it to a blow-up sequence on $Y$. For if $Z_0$ is the centre of the first blow-up, then $Y$ blown up along $Y \cap Z_0$ can naturally be regarded as a closed subvariety of $X_1$. We may continue this inductively, and will obtain a restricted blow-up sequence
+\begin{equation*}
+\Pi|_Y: Y_{r} \stackrel{\pi_{r-1}}{\to} Y_{r-1} \stackrel{\pi_{r-1}}{\to} \cdots \stackrel{\pi_0}{\to} Y_0 = Y
+\end{equation*}
+with centres $Z_i'$.
+\end{defn}
+
+\begin{defn}
+\textbf{Extension.} Assume now that we have a blow-up sequence 
+\begin{equation*}
+\Pi: Y_{r} \stackrel{\pi_{r-1}}{\to} Y_{r-1} \stackrel{\pi_{r-1}}{\to} \cdots \stackrel{\pi_0}{\to} Y_0 = Y
+\end{equation*}
+with centres $Z_i$ on $Y$. Again, if we blow up $X=X_0$ along $Z_i$, we obtain a $k$-variety $X_1$ naturally containing $Y_1$ as a closed subscheme. Continuing this inductively, we obtain the extended blow-up sequence 
+\begin{equation*}
+\Pi^{ex}: X_{r} \stackrel{\pi_{r-1}}{\to} X_{r-1} \stackrel{\pi_{r-1}}{\to} \cdots \stackrel{\pi_0}{\to} X_0 = X
+\end{equation*}
+with centres $Z_i$.
+\end{defn}
 \section{de Jong's Proof}\label{deJongRes}
 
 \begin{thebibliography}{5, style=alpha}
