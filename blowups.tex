@@ -1287,6 +1287,109 @@ Assume $X$ is a smooth $k$-variety and $\mathscr{I}$ is a sheaf of ideals having
  
 \section{de Jong's Proof}\label{deJongRes}
 
+\section{Appendix}
+
+\subsection{Rings of fractions}
+
+Localization is a well known technique in commutative algebra, but sometimes we want to somethin slightly different. Let $A$ be an arbitrary commutative ring. How should we define the ring
+\begin{equation*}
+A \left[ {a_1 \over b_1} , ... , {a_r \over b_r} \right]?
+\end{equation*}
+For domains giving a definition is easy, but it isn't immediately clear what should happen for $A$ whith zerodivisors. A prime example where rings like this appear, is with blow-ups, and they will provide the driving motivation behind the definitions.
+
+We begin by giving the definition for the case when we add only one new fraction. Let $a$ and $b$ be elements of $A$, and let $I = (a,b)$. The blow-up of $\spec (A)$ along $I$ is the projective scheme associated to the Rees-algebra $A[It] = A[at, bt]$. This is the graded quotient algebra of $A[x,y]$, where we have exactly the relations $cx = dy$ for all $c,d \in A$ satisfying $ac = by$. As the second chart of the projective scheme corresponds to the ring we would like to call $A[a/b]$, we are led to the following definition:   
+
+\begin{defn}
+Let $A$ be a ring, and $a,b \in A$. We define $A[a/b]$ as a quotient ring of the polynomial algebra $A[x]$ (the indeterminate $x$ represents the fraction $a/b$), where $x$ satisfies the relations
+\begin{equation*}
+cx = d
+\end{equation*}
+for all $c$ and $d$ such that $ac = bd$.
+\end{defn}
+
+One would initially think that if $a$ is divisible by $b$, then nothing should change. But by the definiton, the fraction $a/b$ should be unique, which isn't necessarily the case in a general ring $A$. This simple observation gives us a universal property definition both for a single generator and for multiple generators.
+
+\begin{defn}
+The map $f: A \to A \left[ {a_1 \over b_1}, ... , {a_r \over b_r} \right]$ is the universal homomorphism of rings where $f(a_i)$ is uniquely divisible by $f(b_i)$ for all $i = 1..r$.
+\end{defn}
+
+\begin{prop}
+Our definition for $A \left[ {a \over b} \right]$ satisfies the universal property. 
+\end{prop}
+\begin{proof}
+Let us have a map $f': A \to B$ such that $f'(a)$ is uniquely divisible by $f'(b)$. Denote by $\alpha$ the result of this division. We want to show that there is a unique map of rings $A \left[ {a \over b} \right] \to B$ making the diagram
+\begin{center}
+\begin{tikzpicture}[scale=1]
+\node (B) at (3,0) {$B$};
+\node (A') at (3,2) {$A \left[ {a \over b} \right]$};
+\node (A) at (0,2) {$A$};
+\path[]
+(A) edge[->] (A')
+(A) edge[->] (B)
+(A') edge[->, dashed] (B)
+;
+\end{tikzpicture}
+\end{center}
+commute.
+
+It is clear that if such a map exist, then it is unique. To prove existence, we need to show that $\alpha$ satisfies all the relations $x$ had to satisfy in our construction of $A[a/b]$. Assume we have $c,d \in A$ such that $ac = bd$. Assume $f'(c) \alpha - f'(d) \not = 0$. Now 
+\begin{align*}
+(f'(c) \alpha - f'(d)) f'(b) &=  f'(c) \alpha f'(b)  - f'(d) f'(b) \\
+&= f'(c) f'(a)  - f'(d) f'(b) \\
+&= f(ac - bd) \\ 
+&= 0
+\end{align*}
+and hence both $\alpha$ and $\alpha + f'(c) \alpha - f'(d)$ give $f'(a)$ when multiplied with $f'(b)$. This however contradicts the assumption that $f'(a)$ is uniquely divisible by $f'(b)$, and we are done.
+\end{proof}
+
+Next we want to show that $A \left[ {a_1 \over b_1}, ... , {a_r \over b_r} \right]$ exist for $r>1$.
+
+\begin{prop}
+$A \left[ {a_1 \over b_1}, ... , {a_r \over b_r} \right]$ always exists.
+\end{prop}
+\begin{proof}
+I claim that the universal property is satisfied by the ring
+\begin{equation*}
+A \left[ {a_1 \over b_1} \right] \cdots \left[ {a_r \over b_r} \right]
+\end{equation*}
+constructed using successive extensions by one fraction. We can do this using induction, where the base case $r=1$ is already been taken care of.
+
+Assume that the claim holds for $r-1$, so that we have a map
+\begin{equation*}
+A \to A \left[ {a_1 \over b_1}, ... , {a_{r-1} \over b_{r-1}} \right]
+\end{equation*}
+satisfying the universal property, and let us have a map of rings $A \to B$ sending $a_i$ to an element uniquely divisible by the image of $b_i$. Now we need to show, that the composition
+\begin{equation*}
+A \to A \left[ {a_1 \over b_1}, ... , {a_{r-1} \over b_{r-1}} \right] \to A \left[ {a_1 \over b_1}, ... , {a_{r-1} \over b_{r-1}} \right] \left[{a_{r} \over b_{r}} \right]
+\end{equation*}
+satisfies the desired universal property. We need only to show the existence of a map making the diagram
+\begin{center}
+\begin{tikzpicture}[scale=1]
+\node (B) at (7,0) {$B$};
+\node (A') at (3,2) {$A \left[ {a_1 \over b_1}, ... , {a_{r-1} \over b_{r-1}} \right]$};
+\node (A'') at (7,2) {$A \left[ {a_1 \over b_1}, ... , {a_{r-1} \over b_{r-1}} \right] \left[{a_{r} \over b_{r}} \right]$};
+\node (A) at (0,2) {$A$};
+\path[]
+(A) edge[->] (A')
+(A') edge[->] (A'')
+(A) edge[->] (B)
+(A'') edge[->, dashed] (B)
+;
+\end{tikzpicture}
+\end{center}
+commute, as the uniqueness of such map is again trivial. But this is easy. We can use the universal property to ''extend'' $A \to B$ to a map $A \left[ {a_1 \over b_1}, ... , {a_{r-1} \over b_{r-1}} \right] \to B$, and then again to ''extend'' this to a morphism $A \left[ {a_1 \over b_1}, ... , {a_{r-1} \over b_{r-1}} \right] \left[{a_{r} \over b_{r}} \right] \to B$. Verifying that the map thus obtained makes the diagram commute is straightforward.
+\end{proof}
+
+We still want to make sure of two things: the new definition coincides with the ''obvious'' one for integral domains, and, secondly, this new definition coincides with the local coordinate rings over blow-ups. We start with the first one.
+
+\begin{prop}
+Assume $A$ is an integral domain. Now the sub $A$-algebra $B$ of the field of fractions $K(A)$ generated by ${a_1 \over b_1},...,{a_r \over b_r}$ satisfies the universal property for $A \left[ {a_1 \over b_1},...,{a_r \over b_r} \right]$.
+\end{prop}
+\begin{proof}
+It is clearly enough only to take care of the $r = 1$ case. In order to show that the natural map $A [a/b] \to B$ is an isomorphism, we need to show that $a/b \in B$ satisfies no ''extra'' relations.
+
+
+\end{proof}
 \begin{thebibliography}{5, style=alpha}
 
 \bibitem[AtM]{AtM} 
